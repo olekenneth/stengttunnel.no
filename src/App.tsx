@@ -1,9 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
-import { Message } from "semantic-ui-react";
+import { Advertisement, Message } from "semantic-ui-react";
 import "./App.css";
 import Header from "./Header";
 import { IRoad, IFavorite } from "./types";
 import Road from "./Road";
+import Ad from "./Ad";
 
 const App: FC<any> = () => {
   const [roads, setRoads] = useState<IRoad[]>([]);
@@ -65,8 +66,13 @@ const App: FC<any> = () => {
         {roads
           .filter((r) => favorites.indexOf(r.urlFriendly) !== -1)
           .reverse()
-          .map((r) => (
-            <Road key={r.urlFriendly} road={r} />
+          .map((r, i) => (
+            <div key={`container-${r.urlFriendly}`}>
+              <Road road={r} />
+              <Advertisement unit="banner" centered>
+                <Ad />
+              </Advertisement>
+            </div>
           ))}
       </div>
     </>

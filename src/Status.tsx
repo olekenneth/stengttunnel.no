@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState } from "react";
-import { IRoad, IRoadStatus, ISource } from "./types";
-import { Card, Modal, Button, Loader, Header } from "semantic-ui-react";
+import React, { FC, useState } from "react";
+import { IRoad } from "./types";
+import { Modal, Button } from "semantic-ui-react";
 
 type StatusProps = {
   road: IRoad;
@@ -36,26 +36,6 @@ const Status: FC<any> = (props: StatusProps) => {
         </Button>
       </Modal.Actions>
     </Modal>
-  );
-  return (
-    <Card>
-      <Card.Content>
-        <Card.Header>Er status feil?</Card.Header>
-        <Card.Meta>Nærheten av tunnelen</Card.Meta>
-
-        <Card.Description></Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <div className="ui two buttons">
-          <Button basic color="green">
-            Åpen
-          </Button>
-          <Button basic color="red">
-            Stengt
-          </Button>
-        </div>
-      </Card.Content>
-    </Card>
   );
 };
 
