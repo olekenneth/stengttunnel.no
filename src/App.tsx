@@ -30,7 +30,7 @@ const App: FC<any> = () => {
         ) {
           window.history.replaceState(null, "Stengt tunnel", "/");
           storedFavorites.push(roadFromPath);
-        } else if (roadFromPath) {
+        } else if (roadFromPath && roads.length > 0) {
           setAlert("Finner ikke tunnelen eller veien '" + roadFromPath + "'");
         }
         return storedFavorites;
