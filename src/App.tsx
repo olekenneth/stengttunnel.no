@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Advertisement, Message } from "semantic-ui-react";
+import { Message } from "semantic-ui-react";
 import "./App.css";
 import Header from "./Header";
 import { IRoad, IFavorite } from "./types";
@@ -69,9 +69,7 @@ const App: FC<any> = () => {
           .map((r, i) => (
             <div key={`container-${r.urlFriendly}`}>
               <Road road={r} />
-              <Advertisement unit="banner" centered>
-                <Ad />
-              </Advertisement>
+              <Ad />
             </div>
           ))}
       </div>
