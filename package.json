@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "ln -s index.html build/200.html",
+    "postbuild": "ln -s index.html build/200.html; echo 'beta.stengttunnel.no' > build/CNAME",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
