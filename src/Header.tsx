@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useEffect, useState } from "react";
-import { Dropdown, DropdownProps } from "semantic-ui-react";
+import { Card, Dropdown, DropdownProps } from "semantic-ui-react";
 import { IFavorite, IRoad } from "./types";
 
 interface IDropdownOption {
@@ -24,7 +24,7 @@ const Header: FC<any> = (props: HeaderProps) => {
         key: r.urlFriendly,
         value: r.urlFriendly,
         text: r.roadName,
-        content: <>🟢 {r.roadName}</>,
+        content: <>{r.roadName}</>,
       }))
     );
   }, [props.roads]);
@@ -42,19 +42,21 @@ const Header: FC<any> = (props: HeaderProps) => {
   return (
     <>
       <h1 style={{ textAlign: "center" }}>Stengt tunnel</h1>
-      <Dropdown
-        placeholder="Velg tunnel(er)"
-        onChange={addFavorite}
-        fluid
-        search
-        selection
-        multiple
-        closeOnChange
-        value={props.favorites}
-        disabled={!Boolean(dropdownOptions.length)}
-        loading={!Boolean(dropdownOptions.length)}
-        options={dropdownOptions}
-      />
+      <Card fluid>
+        <Dropdown
+          placeholder="Velg tunnel(er)"
+          onChange={addFavorite}
+          fluid
+          search
+          selection
+          multiple
+          closeOnChange
+          value={props.favorites}
+          disabled={!Boolean(dropdownOptions.length)}
+          loading={!Boolean(dropdownOptions.length)}
+          options={dropdownOptions}
+        />
+      </Card>
     </>
   );
 };
