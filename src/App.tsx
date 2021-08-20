@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Message } from "semantic-ui-react";
+import { Divider, Message } from "semantic-ui-react";
 import "./App.css";
 import Header from "./Header";
 import { IRoad, IFavorite } from "./types";
@@ -70,6 +70,7 @@ const App: FC<any> = () => {
             <div key={`container-${r.urlFriendly}`}>
               <Road road={r} />
               <Ad />
+              <Divider />
             </div>
           ))}
       </div>
