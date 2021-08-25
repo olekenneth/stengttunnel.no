@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Container, Divider, Message, Button } from "semantic-ui-react";
+import { Message } from "semantic-ui-react";
 import "./App.css";
 import Header from "./Header";
 import { IRoad, IFavorite } from "./types";
@@ -9,7 +9,6 @@ const App: FC<any> = () => {
   const [roads, setRoads] = useState<IRoad[]>([]);
   const [favorites, setFavorites] = useState<IFavorite[]>([]);
   const [alert, setAlert] = useState<String | null>(null);
-  const [currentRoad, setCurrentRoad] = useState<IFavorite | null>(null);
 
   useEffect(() => {
     fetch("https://stengttunnel.no/roads.json")
