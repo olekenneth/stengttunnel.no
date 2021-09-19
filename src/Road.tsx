@@ -16,9 +16,22 @@ type RoadProps = {
 
 const Road: FC<any> = (props: RoadProps) => {
   const [road, setRoad] = useState<IRoadStatus>();
+  const [shouldUpdate, setShouldUpdate] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { roadName } = props.road;
 
   useEffect(() => {
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "visible") {
+        setShouldUpdate(true);
+      } else {
+        setShouldUpdate(false);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
     fetch(props.road.url)
       .then((r) => r.json())
       .then((r) => {
@@ -27,10 +40,11 @@ const Road: FC<any> = (props: RoadProps) => {
           ...props.road,
         };
       })
-      .then(setRoad);
-  }, [props.road]);
+      .then(setRoad)
+      .then(() => setLoading(false));
+  }, [props.road, shouldUpdate]);
 
-  if (!road) {
+  if (loading) {
     return (
       <Card fluid>
         <Card.Content>
