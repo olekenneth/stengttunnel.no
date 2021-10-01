@@ -11,7 +11,7 @@ const App: FC<any> = () => {
   const [alert, setAlert] = useState<String | null>(null);
 
   useEffect(() => {
-    fetch("https://stengttunnel.no/roads.json")
+    fetch("https://s.stengttunnel.no/roads.json")
       .then((r) => r.json())
       .then(setRoads);
   }, []);
@@ -62,7 +62,7 @@ const App: FC<any> = () => {
           favorites={favorites}
           setFavorites={setFavorites}
         />
-          <Roads favorites={favorites} roads={roads} />
+        <Roads favorites={favorites} roads={roads} />
       </div>
     </>
   );
