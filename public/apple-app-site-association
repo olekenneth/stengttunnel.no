@@ -1,0 +1,26 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "XQ85U6R33U.com.adapptic.Stengt-Tunnel",
+        "paths": [
+          "*",
+          "/",
+          "/*",
+          "NOT /auth/*"
+        ]
+      }
+    ]
+  },
+  "activitycontinuation": {
+    "apps": [
+      "XQ85U6R33U.com.adapptic.Stengt-Tunnel"
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "XQ85U6R33U.com.adapptic.Stengt-Tunnel"
+    ]
+  }
+}
