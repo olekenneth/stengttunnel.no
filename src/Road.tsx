@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState, useMemo } from "react";
 import { IRoad, IRoadStatus, ISource } from "./types";
-import Status from "./Status";
 import {
   Card,
   Feed,
