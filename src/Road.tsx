@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, useMemo } from "react";
 import { IRoad, IRoadStatus, ISource } from "./types";
 import Status from "./Status";
 import {
@@ -20,8 +20,8 @@ const Road: FC<any> = (props: RoadProps) => {
   const [loading, setLoading] = useState(true);
   const { roadName } = props.road;
 
-  useEffect(() => {
-    document.addEventListener("visibilitychange", function () {
+  useMemo(() => {
+    document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
         setShouldUpdate(true);
       } else {
@@ -148,9 +148,6 @@ const Road: FC<any> = (props: RoadProps) => {
             <Item.Image style={{ width: "auto" }} size="tiny" src={image} />
             <Item.Content verticalAlign="middle">
               <Item.Header as="h2">{statusMessage}</Item.Header>
-              <Item.Extra>
-                <Status road={road} />
-              </Item.Extra>
             </Item.Content>
           </Item>
         </Item.Group>
