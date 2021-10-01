@@ -11,7 +11,7 @@ const App: FC<any> = () => {
   const [alert, setAlert] = useState<String | null>(null);
 
   useEffect(() => {
-    fetch("https://s.stengttunnel.no/roads.json")
+    fetch("https://api.stengttunnel.no/roads.json")
       .then((r) => r.json())
       .then(setRoads);
   }, []);
