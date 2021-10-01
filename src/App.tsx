@@ -24,11 +24,12 @@ const App: FC<any> = () => {
       .then((storedFavorites) => {
         if (
           roadFromPath &&
-          storedFavorites.indexOf(roadFromPath) === -1 &&
           roads.find((r) => r.urlFriendly === roadFromPath)
         ) {
-          window.history.replaceState(null, "Stengt tunnel", "/");
-          storedFavorites.push(roadFromPath);
+            if (storedFavorites.indexOf(roadFromPath) === -1) {
+                storedFavorites.push(roadFromPath);
+            }
+            window.history.replaceState(null, "Stengt tunnel", "/");
         } else if (roadFromPath && roads.length > 0) {
           setAlert("Finner ikke tunnelen eller veien '" + roadFromPath + "'");
         }
