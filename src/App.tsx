@@ -13,8 +13,10 @@ const App = () => {
 
   useEffect(() => {
     let isMounted = true;
+
     ReactGA.initialize("UA-8420880-19", {
-      debug: true,
+      testMode: process.env.NODE_ENV === "test",
+      debug: process.env.NODE_ENV === "development",
     });
     ReactGA.pageview("/");
 
