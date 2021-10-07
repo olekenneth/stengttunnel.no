@@ -1,9 +1,28 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import user from "@testing-library/user-event";
+import { render, screen, waitFor } from "@testing-library/react";
 import App from "./App";
 
-test("renders stengt tunnel", () => {
+test("Render app with Stengt tunnel in header", async () => {
   render(<App />);
-  const el = screen.getByText(/Stengt tunnel/i);
-  expect(el).toBeInTheDocument();
+
+  await waitFor(() => screen.getByText(/Stengt tunnel/i));
+});
+
+test("Search for Oslofjordtunnelen and get status", async () => {
+  render(<App />);
+
+  await waitFor(() => screen.getByRole(/combobox/i));
+  const dropdown = screen.getByRole(/combobox/i);
+  user.click(dropdown);
+  user.type(dropdown.querySelector("input"), "Oslofjord");
+
+  await waitFor(() => screen.getByText(/Oslofjordtunnelen/i));
+  const label = screen.getByText(/Oslofjordtunnelen/i);
+  user.click(label);
+
+  await waitFor(() => screen.getByRole(/road/i));
+  expect(screen.getByRole("status")).toHaveTextContent(
+    /Oslofjordtunnelen ser ut/
+  );
 });
