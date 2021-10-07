@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState, useMemo } from "react";
+import ReactGA from "react-ga";
 import { IRoad, IRoadStatus, ISource } from "./types";
 import {
   Card,
@@ -20,6 +21,7 @@ const Road: FC<any> = (props: RoadProps) => {
   const { roadName } = props.road;
 
   useMemo(() => {
+    ReactGA.pageview("/" + props.road.urlFriendly);
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
         setShouldUpdate(true);

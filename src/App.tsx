@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Message, Segment, Menu } from "semantic-ui-react";
+import ReactGA from "react-ga";
 import "./App.css";
 import Header from "./Header";
 import { IRoad, IFavorite } from "./types";
@@ -12,6 +13,11 @@ const App = () => {
 
   useEffect(() => {
     let isMounted = true;
+    ReactGA.initialize("UA-8420880-19", {
+      debug: true,
+    });
+    ReactGA.pageview("/");
+
     fetch("https://api.stengttunnel.no/roads.json")
       .then((r) => r.json())
       .then((data) => {
