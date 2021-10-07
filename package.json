@@ -3,20 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^12.8.3",
-    "@types/jest": "^26.0.23",
-    "@types/node": "^12.20.12",
-    "@types/react": "^16.14.6",
-    "@types/react-dom": "^16.9.12",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.10.3",
+    "@types/react": "^17.0.27",
+    "@types/react-dom": "^17.0.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "^4.0.3",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.3",
-    "typescript": "^4.2.4",
-    "web-vitals": "^0.2.4"
+    "semantic-ui-react": "^2.0.4",
+    "typescript": "^4.4.3",
+    "web-vitals": "^2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,6 +44,6 @@
     ]
   },
   "devDependencies": {
-    "prettier": "2.2.1"
+    "prettier": "2.4.1"
   }
 }
