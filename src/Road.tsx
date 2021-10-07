@@ -111,16 +111,17 @@ const Road: FC<any> = (props: RoadProps) => {
 
   const share = async () => {
     let shareNavigator = window.navigator as any;
+    const host = new URL(window.location.href);
+    const url = `${host.protocol}//${host.host}/${props.road.urlFriendly}`;
+
     if (shareNavigator.clipboard) {
-      await window.navigator.clipboard.writeText(
-        window.location.href + "/veien"
-      );
+      await window.navigator.clipboard.writeText(url);
     }
     if (shareNavigator.share) {
       await window.navigator.share({
-        title: "Stengttunnel",
-        text: statusMessage,
-        url: window.location.href + "/veieeeen",
+        title: "Stengt tunnel",
+        text: statusMessage + "\nSe mer på ",
+        url,
       });
     }
   };
