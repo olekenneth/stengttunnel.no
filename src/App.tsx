@@ -11,9 +11,18 @@ const App = () => {
   const [alert, setAlert] = useState<String | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
     fetch("https://api.stengttunnel.no/roads.json")
       .then((r) => r.json())
-      .then(setRoads);
+      .then((data) => {
+        if (isMounted) {
+          setRoads(data);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -39,6 +48,7 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
+
   return (
     <>
       <Segment inverted>

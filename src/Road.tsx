@@ -127,7 +127,7 @@ const Road: FC<any> = (props: RoadProps) => {
   };
 
   return (
-    <Card fluid>
+    <Card fluid role="road">
       <Card.Content>
         <Item.Group>
           <Popup
@@ -147,7 +147,9 @@ const Road: FC<any> = (props: RoadProps) => {
           <Item floated="left" style={{ margin: 0 }}>
             <Item.Image style={{ width: "auto" }} size="tiny" src={image} />
             <Item.Content verticalAlign="middle">
-              <Item.Header as="h2">{statusMessage}</Item.Header>
+              <Item.Header role="status" as="h2">
+                {statusMessage}
+              </Item.Header>
             </Item.Content>
           </Item>
         </Item.Group>
