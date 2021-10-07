@@ -21,7 +21,6 @@ const Road: FC<any> = (props: RoadProps) => {
   const { roadName } = props.road;
 
   useMemo(() => {
-    ReactGA.pageview("/" + props.road.urlFriendly);
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
         setShouldUpdate(true);
@@ -32,6 +31,8 @@ const Road: FC<any> = (props: RoadProps) => {
   }, []);
 
   useEffect(() => {
+    ReactGA.pageview("/" + props.road.urlFriendly);
+
     setLoading(true);
     fetch(props.road.url)
       .then((r) => r.json())
