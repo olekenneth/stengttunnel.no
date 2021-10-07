@@ -1,11 +1,11 @@
-import React, { FC, useEffect, useState } from "react";
-import { Message } from "semantic-ui-react";
+import React, { useEffect, useState } from "react";
+import { Message, Segment, Menu } from "semantic-ui-react";
 import "./App.css";
 import Header from "./Header";
 import { IRoad, IFavorite } from "./types";
 import Roads from "./Roads";
 
-const App: FC<any> = () => {
+const App = () => {
   const [roads, setRoads] = useState<IRoad[]>([]);
   const [favorites, setFavorites] = useState<IFavorite[]>([]);
   const [alert, setAlert] = useState<String | null>(null);
@@ -22,14 +22,11 @@ const App: FC<any> = () => {
     Promise.resolve(localStorage.getItem("favorites") || "[]")
       .then((r) => JSON.parse(r))
       .then((storedFavorites) => {
-        if (
-          roadFromPath &&
-          roads.find((r) => r.urlFriendly === roadFromPath)
-        ) {
-            if (storedFavorites.indexOf(roadFromPath) === -1) {
-                storedFavorites.push(roadFromPath);
-            }
-            window.history.replaceState(null, "Stengt tunnel", "/");
+        if (roadFromPath && roads.find((r) => r.urlFriendly === roadFromPath)) {
+          if (storedFavorites.indexOf(roadFromPath) === -1) {
+            storedFavorites.push(roadFromPath);
+          }
+          window.history.replaceState(null, "Stengt tunnel", "/");
         } else if (roadFromPath && roads.length > 0) {
           setAlert("Finner ikke tunnelen eller veien '" + roadFromPath + "'");
         }
@@ -42,22 +39,33 @@ const App: FC<any> = () => {
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
-
   return (
     <>
-      {alert && (
-        <Message
-          negative
-          onDismiss={() => {
-            setAlert(null);
-            window.history.replaceState(null, "Stengt tunnel", "/");
-          }}
+      <Segment inverted>
+        <Menu
+          inverted
+          secondary
+          style={{ margin: "0 auto", maxWidth: "640px" }}
         >
-          <Message.Header>404 Finner ikke siden</Message.Header>
-          <p>{alert}</p>
-        </Message>
-      )}
+          <Menu.Item>
+            <img alt="Stengt tunnel logo" src="/images/stengttunnel-logo.png" />
+          </Menu.Item>
+          <Menu.Item header>Stengt tunnel</Menu.Item>
+        </Menu>
+      </Segment>
       <div style={{ margin: "15px auto", maxWidth: "640px" }}>
+        {alert && (
+          <Message
+            negative
+            onDismiss={() => {
+              setAlert(null);
+              window.history.replaceState(null, "Stengt tunnel", "/");
+            }}
+          >
+            <Message.Header>404 Finner ikke siden</Message.Header>
+            <p>{alert}</p>
+          </Message>
+        )}
         <Header
           roads={roads}
           favorites={favorites}
