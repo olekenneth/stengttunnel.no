@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import { useEffect, useState } from "react";
 import { Card, Dropdown, DropdownProps } from "semantic-ui-react";
 import { IFavorite, IRoad } from "./types";
@@ -15,7 +15,7 @@ type HeaderProps = {
   setFavorites: (f: IFavorite[]) => void;
 };
 
-const Header: FC<any> = (props: HeaderProps) => {
+const Header = (props: HeaderProps) => {
   const [dropdownOptions, setDropdownOptions] = useState<IDropdownOption[]>([]);
 
   useEffect(() => {
@@ -41,7 +41,6 @@ const Header: FC<any> = (props: HeaderProps) => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Stengt tunnel</h1>
       <Card fluid>
         <Dropdown
           placeholder="Velg tunnel(er)"
