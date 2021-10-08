@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState, useMemo } from "react";
+import ReactGA from "react-ga";
 import { IRoad, IRoadStatus, ISource } from "./types";
 import {
   Card,
@@ -30,6 +31,8 @@ const Road: FC<any> = (props: RoadProps) => {
   }, []);
 
   useEffect(() => {
+    ReactGA.pageview("/" + props.road.urlFriendly);
+
     setLoading(true);
     fetch(props.road.url)
       .then((r) => r.json())
