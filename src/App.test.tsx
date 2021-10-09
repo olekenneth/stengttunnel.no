@@ -23,6 +23,6 @@ test("Search for Oslofjordtunnelen and get status", async () => {
 
   await waitFor(() => screen.getByRole(/road/i));
   expect(screen.getByRole("status")).toHaveTextContent(
-    /Oslofjordtunnelen ser ut/
+    /Oslofjordtunnelen (ser ut|er kanskje)/
   );
 });
