@@ -39,7 +39,7 @@ const StatusModal = withAuthenticationRequired(
         <Modal.Header>Er {roadName} åpen eller stengt?</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <p>Hei {user && user.name}!</p>
+            <h3>Hei {user && user.name}!</h3>
             <p>
               Du vet kanskje var som er riktig? Er {roadName} egentlig{" "}
               {status === "green" ? "stengt" : "åpen"}?
