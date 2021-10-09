@@ -5,14 +5,14 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import "semantic-ui-css/semantic.min.css";
 import "./index.css";
 import App from "./App";
-import LocationProvider from './LocationContext'
-
+import LocationProvider from "./LocationContext";
 
 const onRedirectCallback = (appState: any) => {
-  console.log(appState, window.location.pathname);
-  // window.history.push(
-  //   appState && appState.returnTo ? appState.returnTo : window.location.pathname
-  // );
+  window.history.pushState(
+    null,
+    "Stengt tunnel",
+    appState && appState.returnTo ? appState.returnTo : window.location.pathname
+  );
 };
 
 const providerConfig = {
@@ -24,10 +24,10 @@ const providerConfig = {
 
 ReactDOM.render(
   <React.StrictMode>
-        <Auth0Provider {...providerConfig}>
-    <LocationProvider>
+    <Auth0Provider {...providerConfig}>
+      <LocationProvider>
         <App />
-    </LocationProvider>
+      </LocationProvider>
     </Auth0Provider>
   </React.StrictMode>,
   document.getElementById("root")

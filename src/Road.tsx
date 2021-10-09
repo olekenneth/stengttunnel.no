@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import {
   Card,
   Feed,
@@ -9,15 +9,15 @@ import {
 } from "semantic-ui-react";
 
 import ReactGA from "react-ga";
-import { IRoad, IRoadStatus, ISource } from "./types";
+import { IRoad, ISource } from "./types";
 import Status from "./Status";
 
 type RoadProps = {
   road: IRoad;
 };
 
-const Road: FC<any> = (props: RoadProps) => {
-  const [road, setRoad] = useState<IRoadStatus>();
+const Road = (props: RoadProps) => {
+  const [road, setRoad] = useState<IRoad>();
   const [shouldUpdate, setShouldUpdate] = useState(false);
   const [loading, setLoading] = useState(true);
   const { roadName } = props.road;
@@ -156,7 +156,7 @@ const Road: FC<any> = (props: RoadProps) => {
                 {statusMessage}
               </Item.Header>
               <Item.Extra>
-                <Status road={road} />
+                <Status road={road!} />
               </Item.Extra>
             </Item.Content>
           </Item>

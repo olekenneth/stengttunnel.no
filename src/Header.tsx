@@ -41,7 +41,8 @@ const Header = (props: HeaderProps) => {
 
   return (
     <>
-      <Card fluid>
+      <b>Velg én eller flere tunneler</b>
+      <Card fluid style={{ marginTop: "3px" }}>
         <Dropdown
           placeholder="Velg tunnel(er)"
           onChange={addFavorite}
