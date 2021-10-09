@@ -43,10 +43,11 @@ const Roads = (props: RoadsProps) => {
     setMobile(window.innerWidth < 600 || window.innerHeight < 900);
   }, []);
 
-  const roads = props.roads
-    .filter((r) => props.favorites.indexOf(r.urlFriendly) !== -1)
+  const roads = props.favorites
+    .map((f) => props.roads.find((r) => r.urlFriendly === f))
     .reverse()
-    .map((r, i) => {
+    .map((value, i) => {
+      const r = value as IRoad;
       const ref = React.createRef<HTMLDivElement>();
       refs.push({
         active: i === 0 ? true : false,
