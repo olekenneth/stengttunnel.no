@@ -29,8 +29,12 @@ const RoadAndAd = React.forwardRef((props: RoadAndAdProps, ref: any) => {
     <div ref={ref} key={`container-${r.urlFriendly}`}>
       <Road road={r} />
       <Divider />
-      <Ad />
-      <Divider />
+      {process.env.REACT_APP_DISABLE_ADS !== "true" && (
+        <>
+          <Ad />
+          <Divider />
+        </>
+      )}
     </div>
   );
 });

@@ -1,6 +1,6 @@
-import React, { useEffect, FC } from "react";
+import React, { useEffect } from "react";
 
-const Ad: FC<any> = (props: any) => {
+const Ad = (props: any) => {
   useEffect(() => {
     (window.adsbygoogle = window.adsbygoogle || []).push({
       google_ad_client: "ca-pub-8133897183984535",
@@ -16,7 +16,7 @@ const Ad: FC<any> = (props: any) => {
       data-ad-slot="5404963764"
       data-ad-format="auto"
       data-full-width-responsive="true"
-      // data-adtest="on"
+      data-adtest={process.env.NODE_ENV === 'development' ? 'on':'off'}
     />
   );
 };
