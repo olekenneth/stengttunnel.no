@@ -2,6 +2,10 @@ export interface IRoad {
   roadName: string;
   urlFriendly: string;
   url: string;
+  messages: IMessage[];
+  status: "green" | "yellow" | "red";
+  statusMessage: string;
+  statusCode: 10 | 20 | 30;
 }
 
 export enum ISource {
@@ -22,7 +26,6 @@ export interface IRoadStatus {
   status: "green" | "yellow" | "red";
   statusMessage: string;
   statusCode: 10 | 20 | 30;
-  gps?: IGPS;
 }
 
 export interface IGPS {

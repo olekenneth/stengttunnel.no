@@ -34,11 +34,14 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const [, roadFromPath] = window.location.pathname.split("/");
+    const [, roadFromPath, action] = window.location.pathname.split("/");
 
     Promise.resolve(localStorage.getItem("favorites") || "[]")
       .then((r) => JSON.parse(r))
       .then((storedFavorites) => {
+        if (action === "user-report") {
+          return storedFavorites;
+        }
         if (roadFromPath && roads.find((r) => r.urlFriendly === roadFromPath)) {
           if (storedFavorites.indexOf(roadFromPath) === -1) {
             storedFavorites.push(roadFromPath);
