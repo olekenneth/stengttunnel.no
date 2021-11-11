@@ -1,88 +1,88 @@
-import React, { useEffect, useState } from "react";
-import { RefObject } from "react";
+import { FC, createRef, forwardRef, useEffect, useState } from 'react'
+import { RefObject } from 'react'
 
-import { Divider, Button } from "semantic-ui-react";
-import { IRoad, IFavorite } from "./types";
-import Road from "./Road";
-import Ad from "./Ad";
+import { Divider, Button } from 'semantic-ui-react'
+import { IRoad, IFavorite } from './types'
+import Road from './Road'
+import Ad from './Ad'
 
 type RoadsProps = {
-  roads: IRoad[];
-  favorites: IFavorite[];
-};
+  roads: IRoad[]
+  favorites: IFavorite[]
+}
 
 type RoadAndAdProps = {
-  road: IRoad;
-};
+  road: IRoad
+}
 
 type RefDataObject = {
-  active: boolean;
-  road: IRoad;
-  ref: RefObject<HTMLDivElement>;
-  key: string;
-};
+  active: boolean
+  road: IRoad
+  ref: RefObject<HTMLDivElement>
+  key: string
+}
 
 // eslint-disable-next-line react/display-name
-const RoadAndAd = React.forwardRef((props: RoadAndAdProps, ref: any) => {
-  const r = props.road;
+const RoadAndAd = forwardRef((props: RoadAndAdProps, ref: any) => {
+  const r = props.road
   return (
     <div ref={ref} key={`container-${r.urlFriendly}`}>
       <Road road={r} />
       <Divider />
-      {process.env.REACT_APP_DISABLE_ADS !== "true" && (
+      {process.env.REACT_APP_DISABLE_ADS !== 'true' && (
         <>
           <Ad />
           <Divider />
         </>
       )}
     </div>
-  );
-});
+  )
+})
 
-const Roads = (props: RoadsProps) => {
-  const [isMobile, setMobile] = useState<boolean>(false);
-  const refs: RefDataObject[] = [];
+const Roads: FC<RoadsProps> = (props) => {
+  const [isMobile, setMobile] = useState<boolean>(false)
+  const refs: RefDataObject[] = []
 
   useEffect(() => {
-    setMobile(window.innerWidth < 600 || window.innerHeight < 900);
-  }, []);
+    setMobile(window.innerWidth < 600 || window.innerHeight < 900)
+  }, [])
 
   const roads = [...props.favorites]
     .reverse()
     .map((f) => props.roads.find((r) => r.urlFriendly === f))
     .filter(Boolean)
     .map((value, i) => {
-      const r = value as IRoad;
-      const ref = React.createRef<HTMLDivElement>();
+      const r = value as IRoad
+      const ref = createRef<HTMLDivElement>()
       refs.push({
-        active: i === 0 ? true : false,
+        active: i === 0,
         ref,
         road: r,
         key: r.urlFriendly,
-      });
-      return <RoadAndAd ref={ref} key={r.urlFriendly} road={r} />;
-    });
+      })
+      return <RoadAndAd ref={ref} key={r.urlFriendly} road={r} />
+    })
 
   const scrollToNextRoad = (event: any) => {
-    const button = event.target.closest("button");
-    let activeRoadIndex = refs.findIndex((r) => r.active === true);
-    refs[activeRoadIndex].active = false;
+    const button = event.target.closest('button')
+    let activeRoadIndex = refs.findIndex((r) => r.active === true)
+    refs[activeRoadIndex].active = false
 
-    const nextRoadIndex = ++activeRoadIndex % refs.length;
-    const nextRoad = refs[nextRoadIndex];
+    const nextRoadIndex = ++activeRoadIndex % refs.length
+    const nextRoad = refs[nextRoadIndex]
 
-    nextRoad.active = true;
-    refs[nextRoadIndex] = nextRoad;
+    nextRoad.active = true
+    refs[nextRoadIndex] = nextRoad
     nextRoad.ref.current?.scrollIntoView({
-      behavior: "smooth",
-    });
+      behavior: 'smooth',
+    })
 
     if (nextRoadIndex === refs.length - 1) {
-      button.style.transform = "rotate(-180deg)";
+      button.style.transform = 'rotate(-180deg)'
     } else {
-      button.style.transform = "rotate(0)";
+      button.style.transform = 'rotate(0)'
     }
-  };
+  }
 
   return (
     <>
@@ -93,19 +93,19 @@ const Roads = (props: RoadsProps) => {
           color="red"
           circular
           active={false}
-          icon={`arrow down`}
+          icon="arrow down"
           onClick={(event) => scrollToNextRoad(event)}
           style={{
             zIndex: 10000,
-            position: "fixed",
-            bottom: "25px",
-            left: "50%",
-            marginLeft: "-31px",
+            position: 'fixed',
+            bottom: '25px',
+            left: '50%',
+            marginLeft: '-31px',
           }}
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default Roads;
+export default Roads

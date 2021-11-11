@@ -1,0 +1,6 @@
+dist
+out
+node_modules
+.next
+next-env.d.ts
+*.js

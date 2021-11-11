@@ -1,22 +1,22 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { Card, Dropdown, DropdownProps } from "semantic-ui-react";
-import { IFavorite, IRoad } from "./types";
+import { SyntheticEvent } from 'react'
+import { useEffect, useState } from 'react'
+import { Card, Dropdown, DropdownProps } from 'semantic-ui-react'
+import { IFavorite, IRoad } from './types'
 
 interface IDropdownOption {
-  key: string;
-  value: string;
-  text: string;
+  key: string
+  value: string
+  text: string
 }
 
 type HeaderProps = {
-  roads: IRoad[];
-  favorites: IFavorite[];
-  setFavorites: (f: IFavorite[]) => void;
-};
+  roads: IRoad[]
+  favorites: IFavorite[]
+  setFavorites: (f: IFavorite[]) => void
+}
 
 const Header = (props: HeaderProps) => {
-  const [dropdownOptions, setDropdownOptions] = useState<IDropdownOption[]>([]);
+  const [dropdownOptions, setDropdownOptions] = useState<IDropdownOption[]>([])
 
   useEffect(() => {
     setDropdownOptions(
@@ -26,18 +26,21 @@ const Header = (props: HeaderProps) => {
         text: r.roadName,
         content: <>{r.roadName}</>,
       }))
-    );
-  }, [props.roads]);
+    )
+  }, [props.roads])
 
-  const addFavorite = (_event: any, data: DropdownProps) => {
-    props.setFavorites(data.value as IFavorite[]);
+  const addFavorite = (
+    _event: SyntheticEvent<HTMLElement>,
+    data: DropdownProps
+  ) => {
+    props.setFavorites(data.value as IFavorite[])
 
     setTimeout(() => {
-      if ("activeElement" in document) {
-        (document.activeElement as HTMLElement).blur();
+      if ('activeElement' in document) {
+        ;(document.activeElement as HTMLElement).blur()
       }
-    }, 100);
-  };
+    }, 100)
+  }
 
   return (
     <>
@@ -51,13 +54,13 @@ const Header = (props: HeaderProps) => {
           multiple
           closeOnChange
           value={props.favorites}
-          disabled={!Boolean(dropdownOptions.length)}
-          loading={!Boolean(dropdownOptions.length)}
+          disabled={!dropdownOptions.length}
+          loading={!dropdownOptions.length}
           options={dropdownOptions}
         />
       </Card>
     </>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

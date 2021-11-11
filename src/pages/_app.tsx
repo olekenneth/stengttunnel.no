@@ -1,7 +1,7 @@
-import type { AppProps } from "next/app";
-import Script from "next/script";
-import "semantic-ui-css/semantic.min.css";
-import "./index.css";
+import type { AppProps } from 'next/app'
+import Script from 'next/script'
+import 'semantic-ui-css/semantic.min.css'
+import './index.css'
 
 const App = ({ Component, pageProps }: AppProps) => (
   <>
@@ -11,6 +11,6 @@ const App = ({ Component, pageProps }: AppProps) => (
       strategy="afterInteractive"
     />
   </>
-);
+)
 
-export default App;
+export default App
