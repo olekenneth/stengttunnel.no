@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Card, Dropdown, DropdownProps } from "semantic-ui-react";
 import { IFavorite, IRoad } from "./types";
 
@@ -17,6 +17,7 @@ type HeaderProps = {
 
 const Header = (props: HeaderProps) => {
   const [dropdownOptions, setDropdownOptions] = useState<IDropdownOption[]>([]);
+  const testRef = useRef();
 
   useEffect(() => {
     setDropdownOptions(

@@ -1,12 +1,13 @@
+import type { NextPage } from "next";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { Message, Segment, Menu } from "semantic-ui-react";
 import ReactGA from "react-ga";
-import "./App.css";
-import Header from "./Header";
-import { IRoad, IFavorite } from "./types";
-import Roads from "./Roads";
+import Header from "../components/Header";
+import { IRoad, IFavorite } from "../components/types";
+import Roads from "../components/Roads";
 
-const App = () => {
+const Home: NextPage = () => {
   const [roads, setRoads] = useState<IRoad[]>([]);
   const [favorites, setFavorites] = useState<IFavorite[]>([]);
   const [alert, setAlert] = useState<String | null>(null);
@@ -59,6 +60,9 @@ const App = () => {
 
   return (
     <>
+      <Head>
+        <title>Stengt tunnel</title>
+      </Head>
       <Segment inverted>
         <Menu
           inverted
@@ -94,5 +98,4 @@ const App = () => {
     </>
   );
 };
-
-export default App;
+export default Home;

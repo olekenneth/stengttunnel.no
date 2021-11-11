@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { RefObject } from "react";
 
 import { Divider, Button } from "semantic-ui-react";
-import "./App.css";
 import { IRoad, IFavorite } from "./types";
 import Road from "./Road";
 import Ad from "./Ad";
@@ -23,6 +22,7 @@ type RefDataObject = {
   key: string;
 };
 
+// eslint-disable-next-line react/display-name
 const RoadAndAd = React.forwardRef((props: RoadAndAdProps, ref: any) => {
   const r = props.road;
   return (
