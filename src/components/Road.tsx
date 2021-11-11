@@ -1,6 +1,6 @@
 import { FC, useEffect, useState, useMemo } from 'react'
 import ReactGA from 'react-ga'
-import { IRoad, IRoadStatus, ISource } from './types'
+import { IRoad, IRoadStatus, ISource } from '../types'
 import { Card, Feed, Popup, Item, Button, Placeholder } from 'semantic-ui-react'
 
 interface Props {
@@ -106,14 +106,17 @@ const Road: FC<Props> = (props) => {
   })
 
   const share = async () => {
-    const shareNavigator = window.navigator as any
+    const shareNavigator = window.navigator
     const host = new URL(window.location.href)
     const url = `${host.protocol}//${host.host}/${props.road.urlFriendly}`
 
     if (shareNavigator.clipboard) {
       await window.navigator.clipboard.writeText(url)
     }
-    if (shareNavigator.share) {
+    // TS type has this as a required field, but could be
+    // undefined on older browsers. Disabling linter
+    // eslint-disable-next-line no-extra-boolean-cast
+    if (!!shareNavigator.share) {
       await window.navigator.share({
         title: 'Stengt tunnel',
         text: statusMessage + '\nSe mer på ',

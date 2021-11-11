@@ -1,5 +1,7 @@
 import { FC, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { IRoad } from 'types'
+import { GetStaticPropsContext } from 'next'
 
 interface Props {
   slug: string
@@ -29,16 +31,12 @@ const Slug: FC<Props> = ({ slug }) => {
 
 export default Slug
 
-// TODO: Clean this mess up. Move HTTP call to util, not use `any`, etc
 export async function getStaticPaths() {
-  const paths: Array<any> = []
-  await fetch('https://api.stengttunnel.no/roads.json')
-    .then((r) => r.json())
-    .then((roads) => {
-      roads.forEach((road: any) => {
-        paths.push({ params: { slug: road.urlFriendly } })
-      })
-    })
+  const apiData = await fetch('https://api.stengttunnel.no/roads.json')
+  const roadsJSON: IRoad[] = await apiData.json()
+  const paths = roadsJSON.map((road) => ({
+    params: { slug: road.urlFriendly },
+  }))
 
   return {
     paths,
@@ -46,8 +44,9 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }: any) {
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const { params } = context
   return {
-    props: { slug: params.slug },
+    props: { slug: params!.slug },
   }
 }

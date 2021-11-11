@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { IRoad } from './types'
+import { IRoad } from '../types'
 import { Modal, Button } from 'semantic-ui-react'
 
 interface Props {

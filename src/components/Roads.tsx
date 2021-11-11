@@ -1,8 +1,15 @@
-import { FC, createRef, forwardRef, useEffect, useState } from 'react'
+import {
+  FC,
+  createRef,
+  forwardRef,
+  useEffect,
+  useState,
+  MouseEvent,
+} from 'react'
 import { RefObject } from 'react'
 
 import { Divider, Button } from 'semantic-ui-react'
-import { IRoad, IFavorite } from './types'
+import { IRoad, IFavorite } from '../types'
 import Road from './Road'
 import Ad from './Ad'
 
@@ -22,8 +29,7 @@ type RefDataObject = {
   key: string
 }
 
-// eslint-disable-next-line react/display-name
-const RoadAndAd = forwardRef((props: RoadAndAdProps, ref: any) => {
+const RoadAndAd = forwardRef<HTMLDivElement, RoadAndAdProps>((props, ref) => {
   const r = props.road
   return (
     <div ref={ref} key={`container-${r.urlFriendly}`}>
@@ -38,6 +44,7 @@ const RoadAndAd = forwardRef((props: RoadAndAdProps, ref: any) => {
     </div>
   )
 })
+RoadAndAd.displayName = 'RoadAndAd'
 
 const Roads: FC<RoadsProps> = (props) => {
   const [isMobile, setMobile] = useState<boolean>(false)
@@ -63,8 +70,9 @@ const Roads: FC<RoadsProps> = (props) => {
       return <RoadAndAd ref={ref} key={r.urlFriendly} road={r} />
     })
 
-  const scrollToNextRoad = (event: any) => {
-    const button = event.target.closest('button')
+  const scrollToNextRoad = (event: MouseEvent<HTMLButtonElement>) => {
+    const target = event.target as HTMLElement
+    const button = target.closest('button')
     let activeRoadIndex = refs.findIndex((r) => r.active === true)
     refs[activeRoadIndex].active = false
 
@@ -78,9 +86,9 @@ const Roads: FC<RoadsProps> = (props) => {
     })
 
     if (nextRoadIndex === refs.length - 1) {
-      button.style.transform = 'rotate(-180deg)'
+      button!.style.transform = 'rotate(-180deg)'
     } else {
-      button.style.transform = 'rotate(0)'
+      button!.style.transform = 'rotate(0)'
     }
   }
 

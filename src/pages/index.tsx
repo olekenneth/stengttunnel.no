@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Segment, Menu } from 'semantic-ui-react'
 import ReactGA from 'react-ga'
 import Header from '../components/Header'
-import { IRoad, IFavorite } from '../components/types'
+import { IRoad, IFavorite } from '../types'
 import Roads from '../components/Roads'
 
 const Home: NextPage = () => {

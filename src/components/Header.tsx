@@ -1,7 +1,7 @@
 import { SyntheticEvent } from 'react'
 import { useEffect, useState } from 'react'
 import { Card, Dropdown, DropdownProps } from 'semantic-ui-react'
-import { IFavorite, IRoad } from './types'
+import { IFavorite, IRoad } from '../types'
 
 interface IDropdownOption {
   key: string
