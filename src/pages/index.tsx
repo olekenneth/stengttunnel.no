@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
-import { Message, Segment, Menu } from 'semantic-ui-react'
+import { Segment, Menu } from 'semantic-ui-react'
 import ReactGA from 'react-ga'
 import Header from '../components/Header'
 import { IRoad, IFavorite } from '../components/types'
@@ -10,7 +10,6 @@ import Roads from '../components/Roads'
 const Home: NextPage = () => {
   const [roads, setRoads] = useState<IRoad[]>([])
   const [favorites, setFavorites] = useState<IFavorite[]>([])
-  const [alert, setAlert] = useState<string | null>(null)
 
   useEffect(() => {
     let isMounted = true
@@ -63,18 +62,6 @@ const Home: NextPage = () => {
         </Menu>
       </Segment>
       <div style={{ margin: '15px auto', maxWidth: '640px' }}>
-        {alert && (
-          <Message
-            negative
-            onDismiss={() => {
-              setAlert(null)
-              window.history.replaceState(null, 'Stengt tunnel', '/')
-            }}
-          >
-            <Message.Header>404 Finner ikke siden</Message.Header>
-            <p>{alert}</p>
-          </Message>
-        )}
         <Header
           roads={roads}
           favorites={favorites}
