@@ -68,7 +68,7 @@ const Road: FC<Props> = (props) => {
   }
   const { status, messages, statusMessage } = road!
 
-  const image = `https://stengttunnel.no/status/${status}.png`
+  const image = `/status/${status}.png`
   const messageFeed = messages.map((message, index) => {
     const df = new Intl.DateTimeFormat(
       ['nb-no', 'da', 'sv', 'en-us', 'en-gb'],
