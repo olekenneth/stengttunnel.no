@@ -63,7 +63,7 @@ const Roads = (props: RoadsProps) => {
       return <RoadAndAd ref={ref} key={r.urlFriendly} road={r} />;
     });
 
-  const scrollToNextRoad = (event: any, data: any) => {
+  const scrollToNextRoad = (event: any) => {
     const button = event.target.closest("button");
     let activeRoadIndex = refs.findIndex((r) => r.active === true);
     refs[activeRoadIndex].active = false;
@@ -94,7 +94,7 @@ const Roads = (props: RoadsProps) => {
           circular
           active={false}
           icon={`arrow down`}
-          onClick={(event, data) => scrollToNextRoad(event, data)}
+          onClick={(event) => scrollToNextRoad(event)}
           style={{
             zIndex: 10000,
             position: "fixed",

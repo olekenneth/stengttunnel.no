@@ -29,7 +29,7 @@ const Header = (props: HeaderProps) => {
     );
   }, [props.roads]);
 
-  const addFavorite = (event: any, data: DropdownProps) => {
+  const addFavorite = (_event: any, data: DropdownProps) => {
     props.setFavorites(data.value as IFavorite[]);
 
     setTimeout(() => {
