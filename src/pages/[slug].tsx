@@ -14,7 +14,7 @@ const Slug: FC<Props> = ({ slug }) => {
     Promise.resolve(localStorage.getItem('favorites') || '[]')
       .then((r) => JSON.parse(r))
       .then((storedFavorites) => {
-        if (storedFavorites.indexOf(slug) <= 0) {
+        if (storedFavorites.indexOf(slug) <= -1) {
           storedFavorites.push(slug)
           localStorage.setItem('favorites', JSON.stringify(storedFavorites))
         }
