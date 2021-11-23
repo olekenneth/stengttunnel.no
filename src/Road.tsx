@@ -94,6 +94,7 @@ const Road: FC<any> = (props: RoadProps) => {
     return (
       <Feed.Event key={"message-" + index}>
         <Popup
+          on={"click"}
           trigger={
             message.source === ISource.StatensVegvesen ? (
               <Feed.Label image="/vv_logo.png" />
