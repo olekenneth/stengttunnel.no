@@ -20,7 +20,7 @@ jobs:
     - name: Install Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: 15.x
+        node-version-file: '.nvmrc'
 
     - name: Install NPM packages
       run: npm i
