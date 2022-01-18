@@ -15,7 +15,7 @@ test("Search for Oslofjordtunnelen and get status", async () => {
   await waitFor(() => screen.getByRole(/combobox/i));
   const dropdown = screen.getByRole(/combobox/i);
   user.click(dropdown);
-  user.type(dropdown.querySelector("input"), "Oslofjord");
+  user.type(dropdown.querySelector("input") as Element, "Oslofjord");
 
   await waitFor(() => screen.getByText(/Oslofjordtunnelen/i));
   const label = screen.getByText(/Oslofjordtunnelen/i);
