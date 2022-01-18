@@ -23,7 +23,7 @@ jobs:
         node-version: 15.x
 
     - name: Install NPM packages
-      run: npm i
+      run: npm i --ignore-scripts
 
     - name: Build project
       run: npm run build
