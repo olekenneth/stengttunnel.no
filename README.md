@@ -1,3 +1,13 @@
+# Stengt tunnel API
+
+This is the API running on [https://api.stengttunel.no](https://api.stengttunnel.no).
+
+## Deploy
+
+[![Deploy to DigitalOcean](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/olekenneth/stengttunnel-api/tree/main)
+
+After deploy go into [Cloudflare](https://dash.cloudflare.com/a3326e67b257d2da9f1006e31bc0a313/stengttunnel.no/dns) and change DNS settings to the newly deployed app.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
