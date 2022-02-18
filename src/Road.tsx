@@ -152,7 +152,7 @@ const Road: FC<any> = (props: RoadProps) => {
             <Item.Image style={{ width: "auto" }} size="tiny" src={image} />
             <Item.Content verticalAlign="middle">
               <Item.Header role="status" as="h2">
-                {statusMessage}
+                {statusMessage.replace(/^Tunnelen/, roadName)}
               </Item.Header>
             </Item.Content>
           </Item>
