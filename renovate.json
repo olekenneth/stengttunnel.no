@@ -7,5 +7,11 @@
   "rollbackPrs": true,
   "reviewersFromCodeOwners": true,
   "prHourlyLimit": 10,
-  "lockFileMaintenance": { "enabled": true }
+  "lockFileMaintenance": { "enabled": true },
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    }
+  ]
 }
