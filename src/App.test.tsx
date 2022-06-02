@@ -4,7 +4,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import App from "./App";
 
 beforeEach(() => {
-  const makeFetchResponse = async (value) => ({ json: async () => value });
+  const makeFetchResponse = async (value: any) => ({ json: async () => value });
   const mockFetch = jest
     .fn()
     .mockReturnValueOnce(
@@ -53,7 +53,10 @@ test("Search for Oslofjordtunnelen and get status", async () => {
   await waitFor(() => screen.getByRole(/combobox/i));
   const dropdown = screen.getByRole(/combobox/i);
   await user.click(dropdown);
-  await user.type(dropdown.querySelector("input"), "Oslofjord");
+  await user.type(
+    dropdown.querySelector("input") as HTMLInputElement,
+    "Oslofjord"
+  );
   await waitFor(() => screen.getByText(/Oslofjordtunnelen/i));
   const label = screen.getByText(/Oslofjordtunnelen/i);
   await user.click(label);
