@@ -2,16 +2,23 @@
   "extends": ["config:base", "group:allNonMajor"],
   "labels": ["type: dependencies"],
   "vulnerabilityAlerts": {
-    "labels": ["type: security"]
+    "labels": ["type: dependencies", "type: security"],
+    "automerge": true,
+    "platformAutomerge": true
   },
   "rollbackPrs": true,
   "reviewersFromCodeOwners": true,
   "prHourlyLimit": 10,
-  "lockFileMaintenance": { "enabled": true },
+  "lockFileMaintenance": { 
+    "enabled": true, 
+    "automerge": true,
+    "platformAutomerge": true
+  },
   "packageRules": [
     {
       "matchUpdateTypes": ["major", "minor", "patch", "pin", "digest"],
-      "automerge": true
+      "automerge": true,
+      "platformAutomerge": true
     }
   ]
 }
