@@ -10,7 +10,7 @@
   "lockFileMaintenance": { "enabled": true },
   "packageRules": [
     {
-      "matchUpdateTypes": ["major", "minor", "patch", "pin", "digest"],
+      "matchUpdateTypes": ["lockFileMaintenance", "major", "minor", "patch", "pin", "digest"],
       "automerge": true
     }
   ]
