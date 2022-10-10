@@ -1,24 +1,35 @@
 {
   "files": {
-    "main.css": "/static/css/main.a81574db.chunk.css",
-    "main.js": "/static/js/main.89f5d799.chunk.js",
-    "main.js.map": "/static/js/main.89f5d799.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.36072ed6.js",
-    "runtime-main.js.map": "/static/js/runtime-main.36072ed6.js.map",
-    "static/css/2.975e01f1.chunk.css": "/static/css/2.975e01f1.chunk.css",
-    "static/js/2.b74b52b0.chunk.js": "/static/js/2.b74b52b0.chunk.js",
-    "static/js/2.b74b52b0.chunk.js.map": "/static/js/2.b74b52b0.chunk.js.map",
+    "main.css": "/static/css/main.066567b1.css",
+    "main.js": "/static/js/main.e9acdc74.js",
+    "static/media/Lato-Italic.woff": "/static/media/Lato-Italic.62a9c838c99d073c7ba6.woff",
+    "static/media/Lato-BoldItalic.woff": "/static/media/Lato-BoldItalic.3e6b99809852a8290c42.woff",
+    "static/media/Lato-Bold.woff": "/static/media/Lato-Bold.89b618086a797a8be0f4.woff",
+    "static/media/Lato-Regular.woff": "/static/media/Lato-Regular.1d2ca94dfba6f8d87cfd.woff",
+    "static/media/Lato-Italic.woff2": "/static/media/Lato-Italic.bb5de40edffdbd3ab519.woff2",
+    "static/media/Lato-BoldItalic.woff2": "/static/media/Lato-BoldItalic.e48918f9c91871c0ce3e.woff2",
+    "static/media/Lato-Bold.woff2": "/static/media/Lato-Bold.21b3848a32fce5b0f501.woff2",
+    "static/media/Lato-Regular.woff2": "/static/media/Lato-Regular.75614cfcfedd509b1f7a.woff2",
+    "static/media/icons.woff": "/static/media/icons.eeccf4f66002c6f2ba24.woff",
+    "static/media/brand-icons.woff": "/static/media/brand-icons.2285773e6b4b172f07d9.woff",
+    "static/media/icons.woff2": "/static/media/icons.1551f4f60c37af51121f.woff2",
+    "static/media/brand-icons.woff2": "/static/media/brand-icons.d878b0a6a1144760244f.woff2",
+    "static/media/LatoLatin-Italic.woff": "/static/media/LatoLatin-Italic.39aa466c56f4e0dea659.woff",
+    "static/media/LatoLatin-BoldItalic.woff": "/static/media/LatoLatin-BoldItalic.605cceb154ea64fa2166.woff",
+    "static/media/LatoLatin-Regular.woff": "/static/media/LatoLatin-Regular.ddabf82b5d4d1b866907.woff",
+    "static/media/LatoLatin-Bold.woff": "/static/media/LatoLatin-Bold.f8070493677d71497ccd.woff",
+    "static/media/LatoLatin-Italic.woff2": "/static/media/LatoLatin-Italic.1bc6c436a84acdf2b502.woff2",
+    "static/media/LatoLatin-BoldItalic.woff2": "/static/media/LatoLatin-BoldItalic.ad5dc25ce2697a4ac70a.woff2",
+    "static/media/LatoLatin-Bold.woff2": "/static/media/LatoLatin-Bold.b4fe4204d19d86376b18.woff2",
+    "static/media/LatoLatin-Regular.woff2": "/static/media/LatoLatin-Regular.f42ffe0a26eed80e72e2.woff2",
+    "static/media/outline-icons.woff": "/static/media/outline-icons.bb58e57c48a3e911f15f.woff",
+    "static/media/outline-icons.woff2": "/static/media/outline-icons.7a3337626410ca2f4071.woff2",
     "index.html": "/index.html",
-    "static/css/2.975e01f1.chunk.css.map": "/static/css/2.975e01f1.chunk.css.map",
-    "static/css/main.a81574db.chunk.css.map": "/static/css/main.a81574db.chunk.css.map",
-    "static/js/2.b74b52b0.chunk.js.LICENSE.txt": "/static/js/2.b74b52b0.chunk.js.LICENSE.txt",
-    "static/media/semantic.min.css": "/static/media/outline-icons.bb58e57c.woff"
+    "main.066567b1.css.map": "/static/css/main.066567b1.css.map",
+    "main.e9acdc74.js.map": "/static/js/main.e9acdc74.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.36072ed6.js",
-    "static/css/2.975e01f1.chunk.css",
-    "static/js/2.b74b52b0.chunk.js",
-    "static/css/main.a81574db.chunk.css",
-    "static/js/main.89f5d799.chunk.js"
+    "static/css/main.066567b1.css",
+    "static/js/main.e9acdc74.js"
   ]
 }
