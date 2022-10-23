@@ -1,13 +1,8 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { Card, Dropdown, DropdownProps } from "semantic-ui-react";
+import { Card, Select } from "antd";
 import { IFavorite, IRoad } from "./types";
-
-interface IDropdownOption {
-  key: string;
-  value: string;
-  text: string;
-}
+const { Option } = Select;
 
 type HeaderProps = {
   roads: IRoad[];
@@ -15,46 +10,42 @@ type HeaderProps = {
   setFavorites: (f: IFavorite[]) => void;
 };
 
-const Header = (props: HeaderProps) => {
-  const [dropdownOptions, setDropdownOptions] = useState<IDropdownOption[]>([]);
+const Header = ({ roads, favorites, setFavorites }: HeaderProps) => {
+  const [dropdownOptions, setDropdownOptions] = useState<ReactNode[]>([]);
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(true);
+
+  console.log(favorites);
 
   useEffect(() => {
     setDropdownOptions(
-      props.roads.map((r: IRoad) => ({
-        key: r.urlFriendly,
-        value: r.urlFriendly,
-        text: r.roadName,
-        content: <>{r.roadName}</>,
-      }))
+      roads.map((r: IRoad) => <Option key={r.urlFriendly}>{r.roadName}</Option>)
     );
-  }, [props.roads]);
+  }, [roads]);
 
-  const addFavorite = (event: any, data: DropdownProps) => {
-    props.setFavorites(data.value as IFavorite[]);
+  const addFavorite = (selected: IFavorite[]) => {
+    console.log("adding", selected, "to favorites");
+    setFavorites(selected);
 
     setTimeout(() => {
-      if ("activeElement" in document) {
-        (document.activeElement as HTMLElement).blur();
-      }
+      setDropdownOpen(false);
     }, 100);
   };
 
   return (
     <>
-      <Card fluid>
-        <Dropdown
+      <Card>
+        <Select
+          mode="tags"
+          open={dropdownOpen}
           placeholder="Velg tunnel(er)"
           onChange={addFavorite}
-          fluid
-          search
-          selection
-          multiple
-          closeOnChange
-          value={props.favorites}
-          disabled={!Boolean(dropdownOptions.length)}
+          onDropdownVisibleChange={(visible) => setDropdownOpen(visible)}
+          style={{ width: "100%" }}
+          defaultValue={favorites}
           loading={!Boolean(dropdownOptions.length)}
-          options={dropdownOptions}
-        />
+        >
+          {dropdownOptions}
+        </Select>
       </Card>
     </>
   );

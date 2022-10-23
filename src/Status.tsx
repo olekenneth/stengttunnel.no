@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { IRoad } from "./types";
-import { Modal, Button } from "semantic-ui-react";
+import { Popover, Button } from "antd";
 
 type StatusProps = {
   road: IRoad;
@@ -10,32 +10,27 @@ const Status: FC<any> = (props: StatusProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const { roadName } = props.road;
 
+  const content = (
+    <>
+      <h1>Er {roadName} åpen eller stengt?</h1>
+      <p>
+        Basert på din lokasjon ser vi at du er nærmere enn 20km fra tunnelen. Så
+        du vet kanskje hva som er riktig?
+      </p>
+      <p>Er {roadName} egentlig åpen?</p>
+      <Button onClick={() => setOpen(false)}>Stengt</Button>
+      <Button onClick={() => setOpen(false)}>Åpen</Button>
+    </>
+  );
+
   return (
-    <Modal
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
+    <Popover
+      onOpenChange={(newOpen: boolean) => setOpen(newOpen)}
       open={open}
-      trigger={<Button>Er status feil?</Button>}
+      content={content}
     >
-      <Modal.Header>Er {roadName} åpen eller stengt?</Modal.Header>
-      <Modal.Content>
-        <Modal.Description>
-          <p>
-            Basert på din lokasjon ser vi at du er nærmere enn 20km fra
-            tunnelen. Så du vet kanskje hva som er riktig?
-          </p>
-          <p>Er {roadName} egentlig åpen?</p>
-        </Modal.Description>
-      </Modal.Content>
-      <Modal.Actions>
-        <Button negative onClick={() => setOpen(false)}>
-          Stengt
-        </Button>
-        <Button positive onClick={() => setOpen(false)}>
-          Åpen
-        </Button>
-      </Modal.Actions>
-    </Modal>
+      <Button>Er status feil?</Button>
+    </Popover>
   );
 };
 

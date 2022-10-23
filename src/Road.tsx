@@ -1,14 +1,7 @@
 import React, { FC, useEffect, useState, useMemo } from "react";
 import ReactGA from "react-ga";
 import { IRoad, IRoadStatus, ISource } from "./types";
-import {
-  Card,
-  Feed,
-  Popup,
-  Item,
-  Button,
-  Placeholder,
-} from "semantic-ui-react";
+import { Card, Descriptions, Skeleton } from "antd";
 
 type RoadProps = {
   road: IRoad;
@@ -31,7 +24,7 @@ const Road: FC<any> = (props: RoadProps) => {
   }, []);
 
   useEffect(() => {
-    ReactGA.pageview("/" + props.road.urlFriendly);
+    // ReactGA.pageview("/" + props.road.urlFriendly);
 
     setLoading(true);
     fetch(props.road.url)
@@ -48,70 +41,51 @@ const Road: FC<any> = (props: RoadProps) => {
 
   if (loading) {
     return (
-      <Card fluid>
-        <Card.Content>
-          <Item.Header as="h2">{roadName}</Item.Header>
-          <Placeholder>
-            <Placeholder.Header image>
-              <Placeholder.Line length="full" />
-              <Placeholder.Line length="medium" />
-              <Placeholder.Line />
-              <Placeholder.Line length="medium" />
-            </Placeholder.Header>
-          </Placeholder>
-        </Card.Content>
-        <Card.Content extra>
-          <Placeholder>
-            <Placeholder.Paragraph>
-              <Placeholder.Line length="full" />
-              <Placeholder.Line />
-              <Placeholder.Line />
-              <Placeholder.Line length="full" />
-            </Placeholder.Paragraph>
-          </Placeholder>
-        </Card.Content>
+      <Card>
+        <Descriptions title={roadName} />
+        <Skeleton active />
       </Card>
     );
   }
   const { status, messages, statusMessage } = road!;
 
-  const image = `https://stengttunnel.no/status/${status}.png`;
-  const messageFeed = messages.map((message, index) => {
-    const df = new Intl.DateTimeFormat(
-      ["nb-no", "da", "sv", "en-us", "en-gb"],
-      {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }
-    );
+  // const image = `https://stengttunnel.no/status/${status}.png`;
+  // const messageFeed = messages.map((message, index) => {
+  //   const df = new Intl.DateTimeFormat(
+  //     ["nb-no", "da", "sv", "en-us", "en-gb"],
+  //     {
+  //       weekday: "short",
+  //       month: "short",
+  //       day: "numeric",
+  //       hour: "2-digit",
+  //       minute: "2-digit",
+  //     }
+  //   );
 
-    const times = `${df.format(new Date(message.validFrom))} - ${df.format(
-      new Date(message.validTo)
-    )}`;
-    return (
-      <Feed.Event key={"message-" + index}>
-        <Popup
-          on={"click"}
-          trigger={
-            message.source === ISource.StatensVegvesen ? (
-              <Feed.Label image="/vv_logo.png" />
-            ) : (
-              <Feed.Label icon="user outline" />
-            )
-          }
-          content={message.source}
-          inverted
-        />
-        <Feed.Content>
-          <Feed.Date content={times} />
-          <Feed.Summary>{message.message}</Feed.Summary>
-        </Feed.Content>
-      </Feed.Event>
-    );
-  });
+  //   const times = `${df.format(new Date(message.validFrom))} - ${df.format(
+  //     new Date(message.validTo)
+  //   )}`;
+  //   return (
+  //     <Feed.Event key={"message-" + index}>
+  //       <Popup
+  //         on={"click"}
+  //         trigger={
+  //           message.source === ISource.StatensVegvesen ? (
+  //             <Feed.Label image="/vv_logo.png" />
+  //           ) : (
+  //             <Feed.Label icon="user outline" />
+  //           )
+  //         }
+  //         content={message.source}
+  //         inverted
+  //       />
+  //       <Feed.Content>
+  //         <Feed.Date content={times} />
+  //         <Feed.Summary>{message.message}</Feed.Summary>
+  //       </Feed.Content>
+  //     </Feed.Event>
+  //   );
+  // });
 
   const share = async () => {
     let shareNavigator = window.navigator as any;
@@ -130,39 +104,7 @@ const Road: FC<any> = (props: RoadProps) => {
     }
   };
 
-  return (
-    <Card fluid role="road">
-      <Card.Content>
-        <Item.Group>
-          <Popup
-            on={["click"]}
-            trigger={
-              <Button
-                onClick={share}
-                style={{ position: "absolute", right: "10px" }}
-                icon="external share"
-                circular
-                basic
-              ></Button>
-            }
-            content="Kopiert linken"
-            inverted
-          />
-          <Item floated="left" style={{ margin: 0 }}>
-            <Item.Image style={{ width: "auto" }} size="tiny" src={image} />
-            <Item.Content verticalAlign="middle">
-              <Item.Header role="status" as="h2">
-                {statusMessage.replace(/^Tunnelen/, roadName)}
-              </Item.Header>
-            </Item.Content>
-          </Item>
-        </Item.Group>
-      </Card.Content>
-      <Card.Content extra>
-        <Feed>{messageFeed}</Feed>
-      </Card.Content>
-    </Card>
-  );
+  return <Card role="road">{roadName}</Card>;
 };
 
 export default Road;

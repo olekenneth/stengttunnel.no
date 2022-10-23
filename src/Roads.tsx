@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { RefObject } from "react";
 
-import { Divider, Button } from "semantic-ui-react";
+import { Divider, Button } from "antd";
+import { ArrowDownOutlined } from "@ant-design/icons";
 import "./App.css";
 import { IRoad, IFavorite } from "./types";
 import Road from "./Road";
@@ -89,13 +90,15 @@ const Roads = (props: RoadsProps) => {
       {roads}
       {isMobile && (
         <Button
-          size="massive"
-          color="red"
-          circular
-          active={false}
-          icon={`arrow down`}
-          onClick={(event, data) => scrollToNextRoad(event, data)}
+          type="primary"
+          danger
+          shape="circle"
+          size="large"
+          icon={<ArrowDownOutlined />}
+          // onClick={(event, data) => scrollToNextRoad(event, data)}
           style={{
+            width: "50px",
+            height: "50px",
             zIndex: 10000,
             position: "fixed",
             bottom: "25px",

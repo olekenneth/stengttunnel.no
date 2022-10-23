@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Message, Segment, Menu } from "semantic-ui-react";
+import { Card, message } from "antd";
 import ReactGA from "react-ga";
 import "./App.css";
 import Header from "./Header";
@@ -14,11 +14,11 @@ const App = () => {
   useEffect(() => {
     let isMounted = true;
 
-    ReactGA.initialize("UA-8420880-19", {
-      testMode: process.env.NODE_ENV === "test",
-      debug: process.env.NODE_ENV === "development",
-    });
-    ReactGA.pageview("/");
+    // ReactGA.initialize("UA-8420880-19", {
+    //   testMode: process.env.NODE_ENV === "test",
+    //   debug: process.env.NODE_ENV === "development",
+    // });
+    // ReactGA.pageview("/");
 
     fetch("https://api.stengttunnel.no/roads.json")
       .then((r) => r.json())
@@ -57,33 +57,24 @@ const App = () => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
+  const error = (msg: String) => {
+    return message.error("404 - Finner ikke siden" + msg);
+  };
+
+  if (alert) {
+    error(alert).then(() => {
+      setAlert(null);
+      window.history.replaceState(null, "Stengt tunnel", "/");
+    });
+  }
+
   return (
     <>
-      <Segment inverted>
-        <Menu
-          inverted
-          secondary
-          style={{ margin: "0 auto", maxWidth: "640px" }}
-        >
-          <Menu.Item>
-            <img alt="Stengt tunnel logo" src="/images/stengttunnel-logo.png" />
-          </Menu.Item>
-          <Menu.Item header>Stengt tunnel</Menu.Item>
-        </Menu>
-      </Segment>
+      <Card style={{ margin: "0 auto", maxWidth: "640px" }}>
+        <img alt="Stengt tunnel logo" src="/images/stengttunnel-logo.png" />
+        <h1>Stengt tunnel</h1>
+      </Card>
       <div style={{ margin: "15px auto", maxWidth: "640px" }}>
-        {alert && (
-          <Message
-            negative
-            onDismiss={() => {
-              setAlert(null);
-              window.history.replaceState(null, "Stengt tunnel", "/");
-            }}
-          >
-            <Message.Header>404 Finner ikke siden</Message.Header>
-            <p>{alert}</p>
-          </Message>
-        )}
         <Header
           roads={roads}
           favorites={favorites}
