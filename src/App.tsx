@@ -5,7 +5,6 @@ import "./App.css";
 import Header from "./Header";
 import { IRoad, IFavorite } from "./types";
 import Roads from "./Roads";
-import CookieConsent from "react-cookie-consent";
 
 const App = () => {
   const [roads, setRoads] = useState<IRoad[]>([]);
@@ -91,17 +90,6 @@ const App = () => {
           setFavorites={setFavorites}
         />
         <Roads favorites={favorites} roads={roads} />
-        <CookieConsent>
-          This website uses{" "}
-          <a href="https://policies.google.com/technologies/ads?hl=en-US">
-            Google Ads
-          </a>
-          ,{" "}
-          <a href="https://policies.google.com/privacy?hl=en-US#infocollect">
-            Google Analytics
-          </a>
-          , cookies and local storage.
-        </CookieConsent>
       </div>
     </>
   );
