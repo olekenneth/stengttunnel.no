@@ -24,7 +24,19 @@ const Header = (props: HeaderProps) => {
         key: r.urlFriendly,
         value: r.urlFriendly,
         text: r.roadName,
-        content: <>{r.roadName}</>,
+        content: (
+          <>
+            <a
+              onClick={(e) => {
+                e.preventDefault();
+                return false;
+              }}
+              href={"https://stengttunnel.no/" + r.urlFriendly}
+            >
+              {r.roadName}
+            </a>
+          </>
+        ),
       }))
     );
   }, [props.roads]);

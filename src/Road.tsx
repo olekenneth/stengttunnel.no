@@ -98,7 +98,12 @@ const Road: FC<any> = (props: RoadProps) => {
           trigger={
             message.source === ISource.StatensVegvesen ? (
               <Feed.Label>
-                <img width="35" height="23" src="/vv_logo.png" />
+                <img
+                  alt="Meldingen leveres av Statens Vegvesen"
+                  width="35"
+                  height="23"
+                  src="/vv_logo.png"
+                />
               </Feed.Label>
             ) : (
               <Feed.Label icon="user outline" />
@@ -152,7 +157,12 @@ const Road: FC<any> = (props: RoadProps) => {
           />
           <Item floated="left" style={{ margin: 0 }}>
             <Item.Image style={{ width: "auto" }} size="tiny">
-              <img src={image} width="53" height="168" />
+              <img
+                alt={"Traffic light with the color " + status}
+                src={image}
+                width="53"
+                height="168"
+              />
             </Item.Image>
             <Item.Content verticalAlign="middle">
               <Item.Header role="status" as="h2">
