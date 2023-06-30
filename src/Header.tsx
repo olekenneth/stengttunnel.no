@@ -51,6 +51,10 @@ const Header = (props: HeaderProps) => {
     }, 100);
   };
 
+  if (dropdownOptions.length < 1) {
+    return <></>;
+  }
+
   return (
     <>
       <Card fluid>
@@ -62,7 +66,7 @@ const Header = (props: HeaderProps) => {
           selection
           multiple
           closeOnChange
-          defaultOpen={!Boolean(props.favorites.length)}
+          defaultOpen={props.favorites.length === 0}
           value={props.favorites}
           disabled={!Boolean(dropdownOptions.length)}
           loading={!Boolean(dropdownOptions.length)}
