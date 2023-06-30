@@ -62,6 +62,7 @@ const Header = (props: HeaderProps) => {
           selection
           multiple
           closeOnChange
+          defaultOpen={!Boolean(props.favorites.length)}
           value={props.favorites}
           disabled={!Boolean(dropdownOptions.length)}
           loading={!Boolean(dropdownOptions.length)}
