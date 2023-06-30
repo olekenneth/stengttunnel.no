@@ -66,7 +66,12 @@ const App = () => {
           style={{ margin: "0 auto", maxWidth: "640px" }}
         >
           <Menu.Item>
-            <img alt="Stengt tunnel logo" src="/images/stengttunnel-logo.png" />
+            <img
+              width="35"
+              height="35"
+              alt="Stengt tunnel logo"
+              src="/images/stengttunnel-logo.png"
+            />
           </Menu.Item>
           <Menu.Item header>Stengt tunnel</Menu.Item>
         </Menu>

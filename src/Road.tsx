@@ -97,7 +97,9 @@ const Road: FC<any> = (props: RoadProps) => {
           on={"click"}
           trigger={
             message.source === ISource.StatensVegvesen ? (
-              <Feed.Label image="/vv_logo.png" />
+              <Feed.Label>
+                <img width="35" height="23" src="/vv_logo.png" />
+              </Feed.Label>
             ) : (
               <Feed.Label icon="user outline" />
             )
@@ -149,7 +151,9 @@ const Road: FC<any> = (props: RoadProps) => {
             inverted
           />
           <Item floated="left" style={{ margin: 0 }}>
-            <Item.Image style={{ width: "auto" }} size="tiny" src={image} />
+            <Item.Image style={{ width: "auto" }} size="tiny">
+              <img src={image} width="53" height="168" />
+            </Item.Image>
             <Item.Content verticalAlign="middle">
               <Item.Header role="status" as="h2">
                 {statusMessage.replace(/^Tunnelen/, roadName)}
