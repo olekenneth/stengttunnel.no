@@ -1,5 +1,5 @@
 {
-  "name": "stengttunnel",
+ "name": "stengttunnel",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,6 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "purgecss --css build/static/css/*.css --content build/index.html build/static/js/*.js --output build/static/css",
     "github": "./scripts/github.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -45,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^5.0.0",
     "prettier": "2.8.8"
   }
 }

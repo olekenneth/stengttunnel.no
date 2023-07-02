@@ -24,7 +24,19 @@ const Header = (props: HeaderProps) => {
         key: r.urlFriendly,
         value: r.urlFriendly,
         text: r.roadName,
-        content: <>{r.roadName}</>,
+        content: (
+          <>
+            <a
+              onClick={(e) => {
+                e.preventDefault();
+                return false;
+              }}
+              href={"https://stengttunnel.no/" + r.urlFriendly}
+            >
+              {r.roadName}
+            </a>
+          </>
+        ),
       }))
     );
   }, [props.roads]);
@@ -39,6 +51,10 @@ const Header = (props: HeaderProps) => {
     }, 100);
   };
 
+  if (dropdownOptions.length < 1) {
+    return <></>;
+  }
+
   return (
     <>
       <Card fluid>
@@ -50,6 +66,7 @@ const Header = (props: HeaderProps) => {
           selection
           multiple
           closeOnChange
+          defaultOpen={props.favorites.length === 0}
           value={props.favorites}
           disabled={!Boolean(dropdownOptions.length)}
           loading={!Boolean(dropdownOptions.length)}
