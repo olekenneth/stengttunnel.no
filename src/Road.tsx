@@ -50,25 +50,40 @@ const Road: FC<any> = (props: RoadProps) => {
     return (
       <Card fluid>
         <Card.Content>
-          <Item.Header as="h2">{roadName}</Item.Header>
-          <Placeholder>
-            <Placeholder.Header image>
-              <Placeholder.Line length="full" />
-              <Placeholder.Line length="medium" />
-              <Placeholder.Line />
-              <Placeholder.Line length="medium" />
-            </Placeholder.Header>
-          </Placeholder>
+          <Item.Group>
+            <Popup
+              on={["click"]}
+              trigger={
+                <Button
+                  onClick={() => {}}
+                  style={{ position: "absolute", right: "10px" }}
+                  icon="external share"
+                  circular
+                  basic
+                ></Button>
+              }
+              content="Kopiert linken"
+              inverted
+            />
+            <Item floated="left" style={{ margin: 0 }}>
+              <Item.Image style={{ width: "auto" }} size="tiny">
+                <img
+                  alt={"Traffic light with the color yellow"}
+                  src="/status/yellow.png"
+                  width="53"
+                  height="168"
+                />
+              </Item.Image>
+              <Item.Content verticalAlign="middle">
+                <Item.Header as="h2">
+                  Tunnelen er ...
+                </Item.Header>
+              </Item.Content>
+            </Item>
+          </Item.Group>
         </Card.Content>
         <Card.Content extra>
-          <Placeholder>
-            <Placeholder.Paragraph>
-              <Placeholder.Line length="full" />
-              <Placeholder.Line />
-              <Placeholder.Line />
-              <Placeholder.Line length="full" />
-            </Placeholder.Paragraph>
-          </Placeholder>
+          <Feed></Feed>
         </Card.Content>
       </Card>
     );
