@@ -7,7 +7,6 @@ import {
   Popup,
   Item,
   Button,
-  Placeholder,
 } from "semantic-ui-react";
 
 type RoadProps = {
