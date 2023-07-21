@@ -47,10 +47,6 @@ const Roads = (props: RoadsProps) => {
     setMobile(window.innerWidth < 600 || window.innerHeight < 900);
   }, []);
 
-  if (!props.favorites) {
-    return <></>;
-  }
-
   const roads = [...props.favorites]
     .reverse()
     .map((f) => props.roads.find((r) => r.urlFriendly === f))
