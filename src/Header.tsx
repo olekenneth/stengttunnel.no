@@ -11,7 +11,7 @@ interface IDropdownOption {
 
 type HeaderProps = {
   roads: IRoad[];
-  favorites: IFavorite[];
+  favorites: IFavorite[] | null;
   setFavorites: (f: IFavorite[]) => void;
 };
 
@@ -51,7 +51,7 @@ const Header = (props: HeaderProps) => {
     }, 100);
   };
 
-  if (dropdownOptions.length < 1) {
+  if (props.favorites?.length === 0 || dropdownOptions.length < 1) {
     return <></>;
   }
 
@@ -66,8 +66,8 @@ const Header = (props: HeaderProps) => {
           selection
           multiple
           closeOnChange
-          defaultOpen={props.favorites.length === 0}
-          value={props.favorites}
+          defaultOpen={props.favorites?.length === 0}
+          value={props.favorites || []}
           disabled={!Boolean(dropdownOptions.length)}
           loading={!Boolean(dropdownOptions.length)}
           options={dropdownOptions}
