@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Message, Segment, Menu } from "semantic-ui-react";
+import ReactGA from "react-ga";
 import "./App.css";
 import Header from "./Header";
 import { IRoad, IFavorite } from "./types";
 import Roads from "./Roads";
-import { defaultRoads } from "./utils";
 
 const App = () => {
-  const [roads, setRoads] = useState<IRoad[]>(defaultRoads);
+  const [roads, setRoads] = useState<IRoad[]>([]);
   const [favorites, setFavorites] = useState<IFavorite[]>([]);
   const [alert, setAlert] = useState<String | null>(null);
 
   useEffect(() => {
     let isMounted = true;
+
+    ReactGA.initialize("UA-8420880-19", {
+      testMode: process.env.NODE_ENV === "test",
+      debug: process.env.NODE_ENV === "development",
+    });
+    ReactGA.pageview("/");
 
     fetch("https://api.stengttunnel.no/roads.json")
       .then((r) => r.json())
