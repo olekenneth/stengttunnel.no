@@ -61,8 +61,8 @@ test("Search for Oslofjordtunnelen and get status", async () => {
   const label = screen.getByText(/Oslofjordtunnelen/i);
   await user.click(label);
 
-  await waitFor(() => screen.getByRole(/road/i));
-  expect(screen.getByRole("status")).toHaveTextContent(
+  await waitFor(() => screen.getByTestId(/road/i));
+  expect(screen.getByTestId("status")).toHaveTextContent(
     /Oslofjordtunnelen (ser ut|er kanskje)/
   );
 });

@@ -1,12 +1,6 @@
 import React, { FC, useEffect, useState, useMemo } from "react";
 import { IRoad, IRoadStatus, ISource } from "./types";
-import {
-  Card,
-  Feed,
-  Popup,
-  Item,
-  Button,
-} from "semantic-ui-react";
+import { Card, Feed, Popup, Item, Button } from "semantic-ui-react";
 
 type RoadProps = {
   road: IRoad;
@@ -54,6 +48,7 @@ const Road: FC<any> = (props: RoadProps) => {
                   onClick={() => {}}
                   style={{ position: "absolute", right: "10px" }}
                   icon="external share"
+                  alt="Del link til stengttunnel.no"
                   circular
                   basic
                 ></Button>
@@ -64,16 +59,14 @@ const Road: FC<any> = (props: RoadProps) => {
             <Item floated="left" style={{ margin: 0 }}>
               <Item.Image style={{ width: "auto" }} size="tiny">
                 <img
-                  alt={"Traffic light with the color yellow"}
+                  alt={"Gul trafikklys"}
                   src="/status/yellow.png"
                   width="53"
                   height="168"
                 />
               </Item.Image>
               <Item.Content verticalAlign="middle">
-                <Item.Header as="h2">
-                  Tunnelen er ...
-                </Item.Header>
+                <Item.Header as="h2">Tunnelen er ...</Item.Header>
               </Item.Content>
             </Item>
           </Item.Group>
@@ -96,12 +89,21 @@ const Road: FC<any> = (props: RoadProps) => {
         day: "numeric",
         hour: "2-digit",
         minute: "2-digit",
-      }
+      },
     );
 
-    const times = `${df.format(new Date(message.validFrom))} - ${df.format(
-      new Date(message.validTo)
-    )}`;
+    const times = (
+      <>
+        <time dateTime={new Date(message.validFrom).toISOString()}>
+          {df.format(new Date(message.validFrom))}
+        </time>{" "}
+        -{" "}
+        <time dateTime={new Date(message.validTo).toISOString()}>
+          {df.format(new Date(message.validTo))}
+        </time>
+      </>
+    );
+
     return (
       <Feed.Event key={"message-" + index}>
         <Popup
@@ -124,7 +126,10 @@ const Road: FC<any> = (props: RoadProps) => {
           inverted
         />
         <Feed.Content>
-          <Feed.Date content={times} />
+          <Feed.Date
+            content={times}
+            aria-label={`Meldingen gjelder i perioden:`}
+          />
           <Feed.Summary>{message.message}</Feed.Summary>
         </Feed.Content>
       </Feed.Event>
@@ -148,8 +153,14 @@ const Road: FC<any> = (props: RoadProps) => {
     }
   };
 
+  const statusToColors = {
+    green: "grønt",
+    yellow: "gult",
+    red: "rødt",
+  };
+
   return (
-    <Card fluid role="road">
+    <Card fluid data-testid="road">
       <Card.Content>
         <Item.Group>
           <Popup
@@ -159,6 +170,7 @@ const Road: FC<any> = (props: RoadProps) => {
                 onClick={share}
                 style={{ position: "absolute", right: "10px" }}
                 icon="external share"
+                aria-label={`Del link til Stengt tunnels side for ${roadName}`}
                 circular
                 basic
               ></Button>
@@ -169,14 +181,14 @@ const Road: FC<any> = (props: RoadProps) => {
           <Item floated="left" style={{ margin: 0 }}>
             <Item.Image style={{ width: "auto" }} size="tiny">
               <img
-                alt={"Traffic light with the color " + status}
+                alt={`Trafikklys som viser ${statusToColors[status]} lys`}
                 src={image}
                 width="53"
                 height="168"
               />
             </Item.Image>
             <Item.Content verticalAlign="middle">
-              <Item.Header role="status" as="h2">
+              <Item.Header data-testid="status" as="h2" tabIndex="1">
                 {statusMessage.replace(/^Tunnelen/, roadName)}
               </Item.Header>
             </Item.Content>
