@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.229c3eca.css",
-    "main.js": "/static/js/main.8cc3c842.js",
+    "main.css": "/static/css/main.2aeeb1d5.css",
+    "main.js": "/static/js/main.e3a4f1fe.js",
     "static/media/Lato-Italic.woff": "/static/media/Lato-Italic.e67e575e2b5ee2fe795c.woff",
     "static/media/Lato-BoldItalic.woff": "/static/media/Lato-BoldItalic.2e72ab08f6b108d7eef4.woff",
     "static/media/Lato-Bold.woff": "/static/media/Lato-Bold.497f04acb55a3d00dfa3.woff",
@@ -25,11 +25,11 @@
     "static/media/outline-icons.woff": "/static/media/outline-icons.bb58e57c48a3e911f15f.woff",
     "static/media/outline-icons.woff2": "/static/media/outline-icons.7a3337626410ca2f4071.woff2",
     "index.html": "/index.html",
-    "main.229c3eca.css.map": "/static/css/main.229c3eca.css.map",
-    "main.8cc3c842.js.map": "/static/js/main.8cc3c842.js.map"
+    "main.2aeeb1d5.css.map": "/static/css/main.2aeeb1d5.css.map",
+    "main.e3a4f1fe.js.map": "/static/js/main.e3a4f1fe.js.map"
   },
   "entrypoints": [
-    "static/css/main.229c3eca.css",
-    "static/js/main.8cc3c842.js"
+    "static/css/main.2aeeb1d5.css",
+    "static/js/main.e3a4f1fe.js"
   ]
 }
