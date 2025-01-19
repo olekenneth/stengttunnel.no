@@ -6,6 +6,7 @@ import "./App.css";
 import { IRoad, IFavorite } from "./types";
 import Road from "./Road";
 import Ad from "./Ad";
+import Annonse from "./Annonse";
 
 type RoadsProps = {
   roads: IRoad[];
@@ -25,16 +26,12 @@ type RefDataObject = {
 
 const RoadAndAd = React.forwardRef((props: RoadAndAdProps, ref: any) => {
   const r = props.road;
+  const showAd = Math.random() < 0.5;
   return (
     <div ref={ref} key={`container-${r.urlFriendly}`}>
       <Road road={r} />
       <Divider />
-      {process.env.REACT_APP_DISABLE_ADS !== "true" && (
-        <>
-          <Ad />
-          <Divider />
-        </>
-      )}
+      {showAd ? <Ad /> : <Annonse />}
     </div>
   );
 });
