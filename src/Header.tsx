@@ -37,7 +37,7 @@ const Header = (props: HeaderProps) => {
             </a>
           </>
         ),
-      }))
+      })),
     );
   }, [props.roads]);
 
