@@ -20,7 +20,7 @@ type RoadAndAdProps = {
 type RefDataObject = {
   active: boolean;
   road: IRoad;
-  ref: RefObject<HTMLDivElement>;
+  ref: RefObject<HTMLDivElement | null>;
   key: string;
 };
 

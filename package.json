@@ -1,21 +1,21 @@
 {
- "name": "stengttunnel",
+  "name": "stengttunnel",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/jest-dom": "6.6.3",
-    "@testing-library/react": "13.4.0",
+    "@testing-library/react": "16.2.0",
     "@testing-library/user-event": "14.6.1",
     "@types/jest": "29.5.14",
     "@types/node": "22.13.1",
-    "@types/react": "18.3.18",
-    "@types/react-dom": "18.3.5",
+    "@types/react": "19.0.8",
+    "@types/react-dom": "19.0.3",
     "fomantic-ui-css": "2.9.3",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-ga": "3.3.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "react-scripts": "5.0.1",
-    "semantic-ui-react": "2.1.5",
+    "semantic-ui-react": "3.0.0-beta.2",
     "typescript": "4.9.5",
     "web-vitals": "3.5.2"
   },
@@ -48,5 +48,20 @@
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.0",
     "prettier": "3.4.2"
+  },
+  "overrides": {
+    "semantic-ui-react": {
+      "react": "19",
+      "react-dom": "19"
+    },
+    "psl": "npm:@imput/psl@2.0.4",
+    "data-urls@3.*": {
+      "whatwg-url": "12.0.1"
+    },
+    "jest-environment-jsdom": {
+      "jsdom": {
+        "whatwg-url": "12.0.1"
+      }
+    }
   }
 }

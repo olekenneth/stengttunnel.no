@@ -16,7 +16,7 @@ const Ad = (props: any) => {
       data-ad-slot="5404963764"
       data-ad-format="auto"
       data-full-width-responsive="true"
-      data-adtest={process.env.NODE_ENV === 'development' ? 'on':'off'}
+      data-adtest={process.env.NODE_ENV === "development" ? "on" : "off"}
     />
   );
 };
