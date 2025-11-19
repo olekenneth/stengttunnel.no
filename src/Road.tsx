@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState, useMemo } from "react";
 import { IRoad, IRoadStatus, ISource } from "./types";
 import { Card, Feed, Popup, Item, Button } from "semantic-ui-react";
+import { ReactComponent as StatusSvg } from "./status.svg";
 
 type RoadProps = {
   road: IRoad;
@@ -58,12 +59,12 @@ const Road: FC<any> = (props: RoadProps) => {
             />
             <Item floated="left" style={{ margin: 0 }}>
               <Item.Image style={{ width: "auto" }} size="tiny">
-                <img
-                  alt={"Gul trafikklys"}
-                  src="/status/yellow.png"
-                  width="53"
-                  height="168"
-                />
+              <StatusSvg
+                aria-label="Trafikklys som viser gult lys"
+                className="yellow"
+                width="48"
+                height="139"
+              />
               </Item.Image>
               <Item.Content verticalAlign="middle">
                 <Item.Header as="h2">Tunnelen er ...</Item.Header>
@@ -180,11 +181,11 @@ const Road: FC<any> = (props: RoadProps) => {
           />
           <Item floated="left" style={{ margin: 0 }}>
             <Item.Image style={{ width: "auto" }} size="tiny">
-              <img
-                alt={`Trafikklys som viser ${statusToColors[status]} lys`}
-                src={image}
-                width="53"
-                height="168"
+              <StatusSvg
+                aria-label="Trafikklys som viser ${statusToColors[status]} lys"
+                className={status}
+                width="48"
+                height="139"
               />
             </Item.Image>
             <Item.Content verticalAlign="middle">
