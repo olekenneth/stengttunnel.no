@@ -80,7 +80,6 @@ const Road: FC<any> = (props: RoadProps) => {
   }
   const { status, messages, statusMessage } = road!;
 
-  const image = `https://stengttunnel.no/status/${status}.png`;
   const messageFeed = messages.map((message, index) => {
     const df = new Intl.DateTimeFormat(
       ["nb-no", "da", "sv", "en-us", "en-gb"],
@@ -182,7 +181,7 @@ const Road: FC<any> = (props: RoadProps) => {
           <Item floated="left" style={{ margin: 0 }}>
             <Item.Image style={{ width: "auto" }} size="tiny">
               <StatusSvg
-                aria-label="Trafikklys som viser ${statusToColors[status]} lys"
+                aria-label={`Trafikklys som viser ${statusToColors[status]} lys`}
                 className={status}
                 width="48"
                 height="139"
