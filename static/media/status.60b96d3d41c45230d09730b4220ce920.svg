@@ -1,0 +1,20 @@
+<svg width="48" height="134" viewBox="0 0 48 134" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    /* base (off) color for all lights */
+    .light { fill: #7E7B7B }
+
+    /* when svg has one of these classes, show that light in color */
+    svg.red .top { fill: #F26A67 }
+    svg.red .middle, svg.red .bottom { fill: #7E7B7B }
+
+    svg.yellow .middle { fill: #FBA833 }
+    svg.yellow .top, svg.yellow .bottom { fill: #7E7B7B }
+
+    svg.green .bottom { fill: #6CC198 }
+    svg.green .top, svg.green .middle { fill: #7E7B7B }
+  </style>
+  <rect width="48" height="134" rx="24" fill="black"/>
+  <circle class="bottom light" cx="24" cy="110" r="19"/>
+  <circle class="middle light" cx="24" cy="67" r="19"/>
+  <circle class="top light" cx="24" cy="24" r="19"/>
+</svg>
