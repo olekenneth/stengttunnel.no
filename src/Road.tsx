@@ -59,15 +59,14 @@ const Road: FC<any> = (props: RoadProps) => {
             />
             <Item floated="left" style={{ margin: 0 }}>
               <Item.Image style={{ width: "auto" }} size="tiny">
-              <StatusSvg
-                aria-label="Trafikklys som viser gult lys"
-                className="yellow"
-                width="48"
-                height="139"
-              />
+                <StatusSvg
+                  role="img"
+                  aria-label="Trafikklys som viser gult lys"
+                  className="yellow"
+                />
               </Item.Image>
               <Item.Content verticalAlign="middle">
-                <Item.Header as="h2">Tunnelen er ...</Item.Header>
+                <Item.Header as="h2" aria-label={`Vennligst vent. Laster status for ${roadName}`}>Tunnelen er ...</Item.Header>
               </Item.Content>
             </Item>
           </Item.Group>
@@ -181,10 +180,9 @@ const Road: FC<any> = (props: RoadProps) => {
           <Item floated="left" style={{ margin: 0 }}>
             <Item.Image style={{ width: "auto" }} size="tiny">
               <StatusSvg
+                role="img"
                 aria-label={`Trafikklys som viser ${statusToColors[status]} lys`}
                 className={status}
-                width="48"
-                height="139"
               />
             </Item.Image>
             <Item.Content verticalAlign="middle">
