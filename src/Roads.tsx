@@ -26,7 +26,7 @@ type RefDataObject = {
 
 const RoadAndAd = React.forwardRef((props: RoadAndAdProps, ref: any) => {
   const r = props.road;
-  const showAd = Math.random() < 0.5;
+  const showAd = window.adsbygoogle?.loaded && Math.random() < 0.5;
   return (
     <div ref={ref} key={`container-${r.urlFriendly}`}>
       <Road road={r} />
