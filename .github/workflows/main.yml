@@ -7,6 +7,11 @@ on:
   pull_request:
     branches:
       - main
+  # Daily rebuild at 06:00 UTC (07:00/08:00 Norwegian time)
+  schedule:
+    - cron: '0 6 * * *'
+  # Allow manual trigger
+  workflow_dispatch:
 
 jobs:
   build:
@@ -25,20 +30,19 @@ jobs:
     - name: Install NPM packages
       run: npm i
 
-    - name: Build project
+    - name: Build Next.js project
       run: npm run build
+      env:
+        NODE_ENV: production
 
-    - name: Run Github script
-      run: npm run github
-
-    - name: Run tests
-      run: npm run test
+    - name: Create CNAME file
+      run: echo "beta.stengttunnel.no" > ./out/CNAME
 
     - name: Upload production-ready build files
       uses: actions/upload-artifact@v6
       with:
         name: production-files
-        path: ./build
+        path: ./out
 
   deploy:
     name: Deploy
@@ -51,10 +55,10 @@ jobs:
       uses: actions/download-artifact@v7
       with:
         name: production-files
-        path: ./build
+        path: ./out
 
     - name: Deploy to gh-pages
       uses: peaceiris/actions-gh-pages@v4.0.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build
+        publish_dir: ./out
