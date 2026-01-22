@@ -26,6 +26,17 @@ export async function generateMetadata({ params }: { params: { tunnel: string } 
 
   const status = await getRoadStatus(params.tunnel)
 
+  if (!status) {
+    return {
+      title: `${road.roadName} - Stengt tunnel`,
+      description: `Informasjon om ${road.roadName}`,
+      openGraph: {
+        title: `${road.roadName} - Stengt tunnel`,
+        description: `Informasjon om ${road.roadName}`,
+      },
+    }
+  }
+
   return {
     title: `${road.roadName} - ${status.statusMessage}`,
     description: `Status for ${road.roadName}: ${status.statusMessage}`,
