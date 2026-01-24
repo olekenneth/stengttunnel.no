@@ -16,7 +16,10 @@ const Road: FC<RoadProps> = (props) => {
   const [loading, setLoading] = useState(!props.initialStatus);
   const { roadName } = props.road;
 
-  useMemo(() => {
+  useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return;
+
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
         setShouldUpdate(true);
