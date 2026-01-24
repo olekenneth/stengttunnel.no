@@ -19,6 +19,7 @@ type HeaderProps = {
 
 const Header = (props: HeaderProps) => {
   const [dropdownOptions, setDropdownOptions] = useState<IDropdownOption[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setDropdownOptions(
@@ -40,6 +41,11 @@ const Header = (props: HeaderProps) => {
       }))
     );
   }, [props.roads]);
+
+  useEffect(() => {
+    // Only set open state on client side after mount to avoid hydration mismatch
+    setIsOpen(props.favorites.length === 0);
+  }, [props.favorites.length]);
 
   const addFavorite = (event: any, data: DropdownProps) => {
     props.setFavorites(data.value as IFavorite[]);
@@ -65,7 +71,9 @@ const Header = (props: HeaderProps) => {
         selection
         multiple
         closeOnChange
-        defaultOpen={props.favorites.length === 0}
+        open={isOpen}
+        onOpen={() => setIsOpen(true)}
+        onClose={() => setIsOpen(false)}
         value={props.favorites}
         disabled={!Boolean(dropdownOptions.length)}
         loading={!Boolean(dropdownOptions.length)}
