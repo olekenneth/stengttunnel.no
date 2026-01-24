@@ -17,6 +17,9 @@ const ClientApp = ({ roads, initialStatuses, initialPath }: ClientAppProps) => {
   const [alert, setAlert] = useState<string | null>(null);
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return;
+
     const roadFromPath = initialPath;
 
     Promise.resolve(localStorage.getItem("favorites") || "[]")
@@ -26,9 +29,7 @@ const ClientApp = ({ roads, initialStatuses, initialPath }: ClientAppProps) => {
           if (storedFavorites.indexOf(roadFromPath) === -1) {
             storedFavorites.push(roadFromPath);
           }
-          if (typeof window !== 'undefined') {
-            window.history.replaceState(null, "Stengt tunnel", "/");
-          }
+          window.history.replaceState(null, "Stengt tunnel", "/");
         } else if (roadFromPath && roads.length > 0) {
           setAlert("Finner ikke tunnelen eller veien '" + roadFromPath + "'");
         }
@@ -39,6 +40,8 @@ const ClientApp = ({ roads, initialStatuses, initialPath }: ClientAppProps) => {
   }, [roads, initialPath]);
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return;
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
