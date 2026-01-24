@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import ReactDOM from 'react-dom'
 
 // Client component to load the findDOMNode polyfill for Semantic UI React compatibility
 export default function ReactDomPolyfill() {
@@ -10,11 +11,9 @@ export default function ReactDomPolyfill() {
     // that relies on the deprecated findDOMNode API
 
     if (typeof window !== 'undefined') {
-      const ReactDOM = require('react-dom')
-
-      if (!ReactDOM.findDOMNode) {
+      if (!(ReactDOM as any).findDOMNode) {
         // @ts-ignore - Adding polyfill for legacy API
-        ReactDOM.findDOMNode = (component: any) => {
+        (ReactDOM as any).findDOMNode = (component: any) => {
           if (component == null) {
             return null
           }
