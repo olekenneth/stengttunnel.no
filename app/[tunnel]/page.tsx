@@ -2,11 +2,25 @@ import { getAllRoads, getRoadStatus, getAllRoadStatuses } from '@/lib/api'
 import { notFound } from 'next/navigation'
 import ClientApp from '@/components/ClientApp'
 
-export const revalidate = 0
+// Fallback list of common tunnels in case API is unavailable during build
+const FALLBACK_TUNNELS = [
+  'oslofjordtunnelen',
+  'atlanterhavstunnelen',
+  'blindheimstunnelen',
+  'bjorgatunnelen',
+  'bragernestunnelen',
+]
 
 // Generate static params for all tunnels
 export async function generateStaticParams() {
   const roads = await getAllRoads()
+
+  // If API is down, use fallback list to ensure at least some pages are generated
+  if (roads.length === 0) {
+    return FALLBACK_TUNNELS.map((tunnel) => ({
+      tunnel,
+    }))
+  }
 
   return roads.map((road) => ({
     tunnel: road.urlFriendly,
