@@ -1,8 +1,6 @@
 import { getAllRoads, getAllRoadStatuses } from '@/lib/api'
 import ClientApp from '@/components/ClientApp'
 
-export const revalidate = 0
-
 export default async function HomePage() {
   const roads = await getAllRoads()
   const statusesMap = await getAllRoadStatuses()

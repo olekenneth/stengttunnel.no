@@ -5,7 +5,7 @@ const API_BASE = 'https://api.stengttunnel.no'
 export async function getAllRoads(): Promise<IRoad[]> {
   try {
     const res = await fetch(`${API_BASE}/roads.json`, {
-      cache: 'no-store',
+      cache: 'force-cache',
       // Add timeout and retry logic for build resilience
       signal: AbortSignal.timeout(10000)
     })
@@ -26,7 +26,7 @@ export async function getAllRoads(): Promise<IRoad[]> {
 export async function getRoadStatus(urlFriendly: string): Promise<IRoadStatus | null> {
   try {
     const res = await fetch(`${API_BASE}/${urlFriendly}/status.json`, {
-      cache: 'no-store',
+      cache: 'force-cache',
       signal: AbortSignal.timeout(10000)
     })
 
