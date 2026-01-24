@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
+import ReactDomPolyfill from '@/components/ReactDomPolyfill'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -61,6 +62,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
       </head>
       <body>
+        <ReactDomPolyfill />
         {children}
 
         {/* Google AdSense */}
