@@ -27,7 +27,14 @@ type RefDataObject = {
 
 const RoadAndAd = React.forwardRef<HTMLDivElement, RoadAndAdProps>((props, ref) => {
   const r = props.road;
-  const showAd = typeof window !== 'undefined' && window.adsbygoogle?.loaded && Math.random() < 0.5;
+  const [showAd, setShowAd] = useState(false);
+
+  useEffect(() => {
+    // Only decide on client side to avoid hydration mismatch
+    if (typeof window !== 'undefined' && window.adsbygoogle?.loaded) {
+      setShowAd(Math.random() < 0.5);
+    }
+  }, []);
 
   return (
     <div ref={ref} key={`container-${r.urlFriendly}`}>
