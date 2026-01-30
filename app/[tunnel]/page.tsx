@@ -52,10 +52,10 @@ export async function generateMetadata({ params }: { params: { tunnel: string } 
   }
 
   return {
-    title: `${road.roadName} - ${status.statusMessage}`,
-    description: `Status for ${road.roadName}: ${status.statusMessage}`,
+    title: status.statusMessage,
+    description: status.statusMessage,
     openGraph: {
-      title: `${road.roadName} - ${status.statusMessage}`,
+      title: status.statusMessage,
       description: `Status for ${road.roadName}`,
     },
   }
