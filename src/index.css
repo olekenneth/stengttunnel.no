@@ -25,3 +25,9 @@ input[type=text] {
     transition-duration: 0.4s;
     transform: rotate(0deg);
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ui.red.button {
+        transition: none;
+    }
+}

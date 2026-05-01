@@ -4,7 +4,10 @@ import { render, screen, waitFor } from "@testing-library/react";
 import App from "./App";
 
 beforeEach(() => {
-  const makeFetchResponse = async (value: any) => ({ json: async () => value });
+  const makeFetchResponse = async (value: any) => ({
+    ok: true,
+    json: async () => value,
+  });
   const mockFetch = jest
     .fn()
     .mockReturnValueOnce(

@@ -8,21 +8,32 @@ import Roads from "./Roads";
 const App = () => {
   const [roads, setRoads] = useState<IRoad[]>([]);
   const [favorites, setFavorites] = useState<IFavorite[]>([]);
-  const [alert, setAlert] = useState<String | null>(null);
+  const [alert, setAlert] = useState<string | null>(null);
 
   useEffect(() => {
-    let isMounted = true;
+    const controller = new AbortController();
 
-    fetch("https://api.stengttunnel.no/roads.json")
-      .then((r) => r.json())
-      .then((data) => {
-        if (isMounted) {
-          setRoads(data);
+    fetch("https://api.stengttunnel.no/roads.json", {
+      signal: controller.signal,
+    })
+      .then((r) => {
+        if (!r.ok) {
+          throw new Error(`HTTP ${r.status}`);
+        }
+        return r.json();
+      })
+      .then(setRoads)
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          // Keep silent in UI; the dropdown loading state still indicates
+          // unavailability. Log for debugging.
+          // eslint-disable-next-line no-console
+          console.error("Failed to load roads.json", err);
         }
       });
 
     return () => {
-      isMounted = false;
+      controller.abort();
     };
   }, []);
 
