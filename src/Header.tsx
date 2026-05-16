@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Dropdown, DropdownProps } from "semantic-ui-react";
+import { Dropdown, DropdownProps } from "semantic-ui-react";
 import { IFavorite, IRoad } from "./types";
 
 interface IDropdownOption {
@@ -15,8 +15,9 @@ type HeaderProps = {
 };
 
 // Reserve the same vertical space whether the dropdown is loading or ready,
-// to avoid a layout shift when the roads list arrives.
-const RESERVED_HEIGHT = "62px";
+// to avoid a layout shift when the roads list arrives. Matches the natural
+// height of a `selection` Dropdown so the loaded state sits flush.
+const RESERVED_HEIGHT = "38px";
 
 const Header = (props: HeaderProps) => {
   const [dropdownOptions, setDropdownOptions] = useState<IDropdownOption[]>([]);
@@ -53,21 +54,20 @@ const Header = (props: HeaderProps) => {
   }
 
   return (
-    <Card fluid style={{ minHeight: RESERVED_HEIGHT }}>
-      <Dropdown
-        placeholder="Velg tunnel(er)"
-        onChange={addFavorite}
-        fluid
-        search
-        selection
-        multiple
-        closeOnChange
-        defaultOpen={props.favorites.length === 0}
-        value={props.favorites}
-        options={dropdownOptions}
-      />
-    </Card>
+    <Dropdown
+      placeholder="Velg tunnel(er)"
+      onChange={addFavorite}
+      fluid
+      search
+      selection
+      multiple
+      closeOnChange
+      defaultOpen={props.favorites.length === 0}
+      value={props.favorites}
+      options={dropdownOptions}
+    />
   );
 };
 
 export default Header;
+
