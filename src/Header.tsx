@@ -65,6 +65,7 @@ const Header = (props: HeaderProps) => {
       defaultOpen={props.favorites.length === 0}
       value={props.favorites}
       options={dropdownOptions}
+      style={{ marginBottom: "1em" }}
     />
   );
 };
