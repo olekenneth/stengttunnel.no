@@ -25,13 +25,19 @@ const App = () => {
       .then((data: IRoad[]) => {
         // Filter out invalid entries (e.g. lowercase-named placeholder
         // rows from the API) and sort alphabetically with Norwegian
-        // collation so the dropdown is predictable.
-        const cleaned = data
-          .filter((r) => r.roadName && /^[A-ZÆØÅ]/.test(r.roadName))
-          .sort((a, b) =>
-            a.roadName.localeCompare(b.roadName, "nb-NO")
-          );
-        setRoads(cleaned);
+        // collation so the dropdown is predictable. Oslofjordtunnelen
+        // is pinned to the top as the site's flagship tunnel.
+        const PINNED = ["oslofjordtunnelen"];
+        const cleaned = data.filter(
+          (r) => r.roadName && /^[A-ZÆØÅ]/.test(r.roadName)
+        );
+        const pinned = PINNED.map((p) =>
+          cleaned.find((r) => r.urlFriendly === p)
+        ).filter(Boolean) as IRoad[];
+        const rest = cleaned
+          .filter((r) => !PINNED.includes(r.urlFriendly))
+          .sort((a, b) => a.roadName.localeCompare(b.roadName, "nb-NO"));
+        setRoads([...pinned, ...rest]);
       })
       .catch((err) => {
         if (err.name !== "AbortError") {
