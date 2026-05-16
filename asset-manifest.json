@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.bc8d04ff.css",
-    "main.js": "/static/js/main.fa06308c.js",
+    "main.css": "/static/css/main.d635b5f2.css",
+    "main.js": "/static/js/main.edeab16b.js",
     "static/media/Lato-Italic.woff": "/static/media/Lato-Italic.e67e575e2b5ee2fe795c.woff",
     "static/media/Lato-BoldItalic.woff": "/static/media/Lato-BoldItalic.2e72ab08f6b108d7eef4.woff",
     "static/media/Lato-Bold.woff": "/static/media/Lato-Bold.497f04acb55a3d00dfa3.woff",
@@ -26,11 +26,11 @@
     "static/media/outline-icons.woff2": "/static/media/outline-icons.7a3337626410ca2f4071.woff2",
     "index.html": "/index.html",
     "static/media/status.svg": "/static/media/status.60b96d3d41c45230d09730b4220ce920.svg",
-    "main.bc8d04ff.css.map": "/static/css/main.bc8d04ff.css.map",
-    "main.fa06308c.js.map": "/static/js/main.fa06308c.js.map"
+    "main.d635b5f2.css.map": "/static/css/main.d635b5f2.css.map",
+    "main.edeab16b.js.map": "/static/js/main.edeab16b.js.map"
   },
   "entrypoints": [
-    "static/css/main.bc8d04ff.css",
-    "static/js/main.fa06308c.js"
+    "static/css/main.d635b5f2.css",
+    "static/js/main.edeab16b.js"
   ]
 }
