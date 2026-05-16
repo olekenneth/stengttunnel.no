@@ -8,21 +8,48 @@ import Roads from "./Roads";
 const App = () => {
   const [roads, setRoads] = useState<IRoad[]>([]);
   const [favorites, setFavorites] = useState<IFavorite[]>([]);
-  const [alert, setAlert] = useState<String | null>(null);
+  const [alert, setAlert] = useState<string | null>(null);
 
   useEffect(() => {
-    let isMounted = true;
+    const controller = new AbortController();
 
-    fetch("https://api.stengttunnel.no/roads.json")
-      .then((r) => r.json())
-      .then((data) => {
-        if (isMounted) {
-          setRoads(data);
+    fetch("https://api.stengttunnel.no/roads.json", {
+      signal: controller.signal,
+    })
+      .then((r) => {
+        if (!r.ok) {
+          throw new Error(`HTTP ${r.status}`);
+        }
+        return r.json();
+      })
+      .then((data: IRoad[]) => {
+        // Filter out invalid entries (e.g. lowercase-named placeholder
+        // rows from the API) and sort alphabetically with Norwegian
+        // collation so the dropdown is predictable. Oslofjordtunnelen
+        // is pinned to the top as the site's flagship tunnel.
+        const PINNED = ["oslofjordtunnelen"];
+        const cleaned = data.filter(
+          (r) => r.roadName && /^[A-ZÆØÅ]/.test(r.roadName)
+        );
+        const pinned = PINNED.map((p) =>
+          cleaned.find((r) => r.urlFriendly === p)
+        ).filter(Boolean) as IRoad[];
+        const rest = cleaned
+          .filter((r) => !PINNED.includes(r.urlFriendly))
+          .sort((a, b) => a.roadName.localeCompare(b.roadName, "nb-NO"));
+        setRoads([...pinned, ...rest]);
+      })
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          // Keep silent in UI; the dropdown loading state still indicates
+          // unavailability. Log for debugging.
+          // eslint-disable-next-line no-console
+          console.error("Failed to load roads.json", err);
         }
       });
 
     return () => {
-      isMounted = false;
+      controller.abort();
     };
   }, []);
 

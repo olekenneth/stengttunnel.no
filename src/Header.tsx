@@ -1,6 +1,5 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { Card, Dropdown, DropdownProps } from "semantic-ui-react";
+import React, { useEffect, useState } from "react";
+import { Dropdown, DropdownProps } from "semantic-ui-react";
 import { IFavorite, IRoad } from "./types";
 
 interface IDropdownOption {
@@ -15,6 +14,11 @@ type HeaderProps = {
   setFavorites: (f: IFavorite[]) => void;
 };
 
+// Reserve the same vertical space whether the dropdown is loading or ready,
+// to avoid a layout shift when the roads list arrives. Matches the natural
+// height of a `selection` Dropdown so the loaded state sits flush.
+const RESERVED_HEIGHT = "38px";
+
 const Header = (props: HeaderProps) => {
   const [dropdownOptions, setDropdownOptions] = useState<IDropdownOption[]>([]);
 
@@ -24,19 +28,6 @@ const Header = (props: HeaderProps) => {
         key: r.urlFriendly,
         value: r.urlFriendly,
         text: r.roadName,
-        content: (
-          <>
-            <a
-              onClick={(e) => {
-                e.preventDefault();
-                return false;
-              }}
-              href={"https://stengttunnel.no/" + r.urlFriendly}
-            >
-              {r.roadName}
-            </a>
-          </>
-        ),
       }))
     );
   }, [props.roads]);
@@ -51,30 +42,33 @@ const Header = (props: HeaderProps) => {
     }, 100);
   };
 
+  // While roads are loading, render an empty placeholder of the same height
+  // so the layout below does not shift when the dropdown appears.
   if (dropdownOptions.length < 1) {
-    return <></>;
+    return (
+      <div
+        style={{ minHeight: RESERVED_HEIGHT }}
+        aria-hidden="true"
+      />
+    );
   }
 
   return (
-    <>
-      <Card fluid>
-        <Dropdown
-          placeholder="Velg tunnel(er)"
-          onChange={addFavorite}
-          fluid
-          search
-          selection
-          multiple
-          closeOnChange
-          defaultOpen={props.favorites.length === 0}
-          value={props.favorites}
-          disabled={!Boolean(dropdownOptions.length)}
-          loading={!Boolean(dropdownOptions.length)}
-          options={dropdownOptions}
-        />
-      </Card>
-    </>
+    <Dropdown
+      placeholder="Velg tunnel(er)"
+      onChange={addFavorite}
+      fluid
+      search
+      selection
+      multiple
+      closeOnChange
+      defaultOpen={props.favorites.length === 0}
+      value={props.favorites}
+      options={dropdownOptions}
+      style={{ marginBottom: "1em" }}
+    />
   );
 };
 
 export default Header;
+

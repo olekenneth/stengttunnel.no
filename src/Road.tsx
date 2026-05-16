@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useMemo } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { IRoad, IRoadStatus, ISource } from "./types";
 import { Card, Feed, Popup, Item, Button } from "semantic-ui-react";
 import { ReactComponent as StatusSvg } from "./status.svg";
@@ -7,66 +7,88 @@ type RoadProps = {
   road: IRoad;
 };
 
-const Road: FC<any> = (props: RoadProps) => {
+// Reserve roughly the height of a typical loaded road card (status header +
+// one or two messages) to keep CLS low while the per-road status is fetched.
+const ROAD_MIN_HEIGHT = "220px";
+
+const Road: FC<RoadProps> = (props: RoadProps) => {
   const [road, setRoad] = useState<IRoadStatus>();
   const [shouldUpdate, setShouldUpdate] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<boolean>(false);
   const { roadName } = props.road;
 
-  useMemo(() => {
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") {
-        setShouldUpdate(true);
-      } else {
-        setShouldUpdate(false);
-      }
-    });
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      setShouldUpdate(document.visibilityState === "visible");
+    };
+
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
   }, []);
 
   useEffect(() => {
+    const controller = new AbortController();
     setLoading(true);
-    fetch(props.road.url)
-      .then((r) => r.json())
+    setError(false);
+
+    fetch(props.road.url, { signal: controller.signal })
       .then((r) => {
-        return {
-          ...r,
-          ...props.road,
-        };
+        if (!r.ok) {
+          throw new Error(`HTTP ${r.status}`);
+        }
+        return r.json();
       })
-      .then(setRoad)
-      .then(() => setLoading(false));
+      .then((r) => {
+        setRoad({ ...r, ...props.road });
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (err.name === "AbortError") {
+          return;
+        }
+        setError(true);
+        setLoading(false);
+      });
+
+    return () => {
+      controller.abort();
+    };
   }, [props.road, shouldUpdate]);
 
-  if (loading) {
+  if (loading || error) {
     return (
-      <Card fluid>
+      <Card fluid style={{ minHeight: ROAD_MIN_HEIGHT }}>
         <Card.Content>
           <Item.Group>
-            <Popup
-              on={["click"]}
-              trigger={
-                <Button
-                  onClick={() => {}}
-                  style={{ position: "absolute", right: "10px" }}
-                  icon="external share"
-                  alt="Del link til stengttunnel.no"
-                  circular
-                  basic
-                ></Button>
-              }
-              content="Kopiert linken"
-              inverted
-            />
             <Item floated="left" style={{ margin: 0 }}>
               <Item.Image style={{ width: "auto" }} size="tiny">
                 <StatusSvg
                   role="img"
-                  aria-label="Trafikklys som viser gult lys"
+                  aria-label={
+                    error
+                      ? "Trafikklys som viser gult lys (status utilgjengelig)"
+                      : "Trafikklys som viser gult lys"
+                  }
                   className="yellow"
                 />
               </Item.Image>
               <Item.Content verticalAlign="middle">
-                <Item.Header as="h2" aria-label={`Vennligst vent. Laster status for ${roadName}`}>Tunnelen er ...</Item.Header>
+                <Item.Header
+                  as="h2"
+                  aria-label={
+                    error
+                      ? `Klarte ikke å hente status for ${roadName}`
+                      : `Vennligst vent. Laster status for ${roadName}`
+                  }
+                >
+                  {error
+                    ? `${roadName}: Status utilgjengelig`
+                    : "Tunnelen er ..."}
+                </Item.Header>
               </Item.Content>
             </Item>
           </Item.Group>
@@ -136,7 +158,7 @@ const Road: FC<any> = (props: RoadProps) => {
   });
 
   const share = async () => {
-    let shareNavigator = window.navigator as any;
+    const shareNavigator = window.navigator as any;
     const host = new URL(window.location.href);
     const url = `${host.protocol}//${host.host}/${props.road.urlFriendly}`;
 
@@ -159,7 +181,7 @@ const Road: FC<any> = (props: RoadProps) => {
   };
 
   return (
-    <Card fluid data-testid="road">
+    <Card fluid data-testid="road" style={{ minHeight: ROAD_MIN_HEIGHT }}>
       <Card.Content>
         <Item.Group>
           <Popup
@@ -186,7 +208,7 @@ const Road: FC<any> = (props: RoadProps) => {
               />
             </Item.Image>
             <Item.Content verticalAlign="middle">
-              <Item.Header data-testid="status" as="h2" tabIndex="1">
+              <Item.Header data-testid="status" as="h2">
                 {statusMessage.replace(/^Tunnelen/, roadName)}
               </Item.Header>
             </Item.Content>
