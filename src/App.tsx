@@ -22,7 +22,17 @@ const App = () => {
         }
         return r.json();
       })
-      .then(setRoads)
+      .then((data: IRoad[]) => {
+        // Filter out invalid entries (e.g. lowercase-named placeholder
+        // rows from the API) and sort alphabetically with Norwegian
+        // collation so the dropdown is predictable.
+        const cleaned = data
+          .filter((r) => r.roadName && /^[A-ZÆØÅ]/.test(r.roadName))
+          .sort((a, b) =>
+            a.roadName.localeCompare(b.roadName, "nb-NO")
+          );
+        setRoads(cleaned);
+      })
       .catch((err) => {
         if (err.name !== "AbortError") {
           // Keep silent in UI; the dropdown loading state still indicates
