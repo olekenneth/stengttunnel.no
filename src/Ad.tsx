@@ -1,6 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+// Reserved height while the ad is loading. Collapses to 0 if no ad slot
+// becomes visible within COLLAPSE_TIMEOUT_MS, so we do not leave a large
+// empty box when ads are blocked or do not fill.
+const RESERVED_HEIGHT = 280;
+const COLLAPSE_TIMEOUT_MS = 1500;
 
 const Ad = (props: any) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [collapsed, setCollapsed] = useState(false);
+
   useEffect(() => {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({
@@ -9,23 +18,35 @@ const Ad = (props: any) => {
     } catch (e) {
       // AdSense may throw if blocked or not loaded; fail silently
     }
+
+    const timer = window.setTimeout(() => {
+      // If AdSense filled the slot, the <ins> has data-ad-status="filled"
+      // and a non-zero height. Otherwise, collapse to avoid an empty box.
+      const ins = containerRef.current?.querySelector("ins.adsbygoogle");
+      const status = ins?.getAttribute("data-ad-status");
+      const filled = status === "filled" || (ins?.clientHeight ?? 0) > 0;
+      if (!filled) {
+        setCollapsed(true);
+      }
+    }, COLLAPSE_TIMEOUT_MS);
+
+    return () => window.clearTimeout(timer);
   }, []);
 
   return (
     <div
+      ref={containerRef}
       style={{
-        // Reserve space to avoid Cumulative Layout Shift while the ad loads.
-        // Matches a common responsive ad size; overflow hidden keeps it stable
-        // even when the ad ends up shorter.
-        minHeight: "280px",
+        minHeight: collapsed ? 0 : `${RESERVED_HEIGHT}px`,
         width: "100%",
         overflow: "hidden",
+        transition: "min-height 0.2s ease-out",
       }}
       aria-label="Annonseplass"
     >
       <ins
         className="adsbygoogle"
-        style={{ display: "block", width: "100%", minHeight: "280px" }}
+        style={{ display: "block", width: "100%" }}
         data-ad-client="ca-pub-8133897183984535"
         data-ad-slot="5404963764"
         data-ad-format="auto"

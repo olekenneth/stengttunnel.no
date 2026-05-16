@@ -16,6 +16,7 @@ type RoadsProps = {
 type RoadAndAdProps = {
   road: IRoad;
   showAd: boolean;
+  adsDisabled: boolean;
 };
 
 const RoadAndAd = React.forwardRef<HTMLDivElement, RoadAndAdProps>(
@@ -24,8 +25,8 @@ const RoadAndAd = React.forwardRef<HTMLDivElement, RoadAndAdProps>(
     return (
       <div ref={ref}>
         <Road road={r} />
-        <Divider />
-        {props.showAd ? <Ad /> : <Annonse />}
+        {!props.adsDisabled && <Divider />}
+        {!props.adsDisabled && (props.showAd ? <Ad /> : <Annonse />)}
       </div>
     );
   }
@@ -44,6 +45,10 @@ const Roads = (props: RoadsProps) => {
   const [isMobile, setMobile] = useState<boolean>(false);
   const refsRef = useRef<Array<RefObject<HTMLDivElement>>>([]);
   const activeIndexRef = useRef<number>(0);
+  // Disable ads in environments that set REACT_APP_DISABLE_ADS=true
+  // (e.g. Cloudflare preview deployments) so previewers don't see large
+  // empty ad placeholders.
+  const adsDisabled = process.env.REACT_APP_DISABLE_ADS === "true";
 
   useEffect(() => {
     const onResize = () => setMobile(isMobileViewport());
@@ -107,6 +112,7 @@ const Roads = (props: RoadsProps) => {
           key={r.urlFriendly}
           road={r}
           showAd={adChoices[i]}
+          adsDisabled={adsDisabled}
         />
       ))}
       {isMobile && orderedRoads.length > 1 && (
