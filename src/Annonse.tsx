@@ -102,13 +102,13 @@ const REGNSKAP_1G: Campaign = {
     </>,
   ],
   theme: {
-    gradient: "linear-gradient(135deg, #0b1220 0%, #111827 55%, #1e293b 100%)",
-    iconBg: "rgba(96, 165, 250, 0.18)",
-    iconBorder: "rgba(96, 165, 250, 0.35)",
-    accent: "#60a5fa",
-    ctaBg: "#2563eb",
-    ctaShadow: "rgba(37, 99, 235, 0.4)",
-    shadow: "rgba(17, 24, 39, 0.22)",
+    gradient: "linear-gradient(135deg, #1a0b1f 0%, #3d1a3a 55%, #5b2a4a 100%)",
+    iconBg: "rgba(244, 196, 96, 0.18)",
+    iconBorder: "rgba(244, 196, 96, 0.4)",
+    accent: "#f4c460",
+    ctaBg: "#c9943a",
+    ctaShadow: "rgba(201, 148, 58, 0.45)",
+    shadow: "rgba(61, 26, 58, 0.28)",
   },
 };
 
