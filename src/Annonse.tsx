@@ -1,67 +1,74 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import "./Annonse.css";
 
-const ANNONSE_ORIGIN = "https://annon-se.stengttunnel.no";
-// Initial reserved height so we don't get a layout shift while the iframe
-// loads and posts its real height.
-const INITIAL_HEIGHT = 280;
-const COLLAPSE_TIMEOUT_MS = 1500;
+const SLIDES: React.ReactNode[] = [
+  <>
+    <span className="accent">139</span> oppdaterte spørsmål i{" "}
+    <strong>25 kategorier</strong>
+  </>,
+  <>
+    <strong>599,-</strong> for 3 måneders full tilgang
+  </>,
+  <>
+    Umiddelbar <strong>forklaring</strong> og kildehenvisning
+  </>,
+  <>
+    Øv på <strong>mobil, nettbrett og PC</strong> – ingen app
+  </>,
+  <>
+    Ingen automatisk fornyelse – <strong>engangskjøp</strong>
+  </>,
+  <>
+    <span className="accent">★★★★★</span> 4,9 av 5 i kundevurdering
+  </>,
+];
 
-const Annonse = (props: any) => {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [height, setHeight] = useState<number>(INITIAL_HEIGHT);
-  const [received, setReceived] = useState(false);
+const ROTATE_INTERVAL_MS = 3000;
+
+const Annonse = () => {
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    const handleResize = (event: MessageEvent) => {
-      if (event.origin !== ANNONSE_ORIGIN) {
-        return;
-      }
-      const newHeight = Number(event.data);
-      if (Number.isFinite(newHeight) && newHeight > 0) {
-        setHeight(newHeight + 20);
-        setReceived(true);
-      }
-    };
-
-    window.addEventListener("message", handleResize);
-
-    // Collapse if the iframe never posts a height (blocked, empty, etc).
-    const timer = window.setTimeout(() => {
-      if (!received) {
-        setHeight(0);
-      }
-    }, COLLAPSE_TIMEOUT_MS);
-
-    return () => {
-      window.removeEventListener("message", handleResize);
-      window.clearTimeout(timer);
-    };
-    // We intentionally do not depend on `received`; the timer is a one-shot.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (SLIDES.length <= 1) return;
+    const id = window.setInterval(() => {
+      setCurrent((c) => (c + 1) % SLIDES.length);
+    }, ROTATE_INTERVAL_MS);
+    return () => window.clearInterval(id);
   }, []);
 
   return (
-    <div
-      style={{
-        minHeight: height === 0 ? 0 : `${INITIAL_HEIGHT}px`,
-        width: "100%",
-        transition: "min-height 0.2s ease-out",
-      }}
+    <a
+      className="bfq-ad"
+      href="https://xn--btfrerquizen-tcb2y.no/?utm_source=stengttunnel&utm_medium=banner&utm_campaign=annonse"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Båtførerquizen – øv til båtførerprøven på nett"
     >
-      <iframe
-        ref={iframeRef}
-        src={`${ANNONSE_ORIGIN}/v1/html`}
-        style={{
-          width: "100%",
-          height: `${height}px`,
-          border: "none",
-          display: "block",
-          transition: "height 0.2s ease-out",
-        }}
-        loading="lazy"
-        title="Annonse"
-      />
-    </div>
+      <div className="bfq-ad-inner">
+        <div className="bfq-ad-icon" aria-hidden="true">
+          ⚓
+        </div>
+        <div className="bfq-ad-body">
+          <div className="bfq-ad-eyebrow">Båtførerquizen.no</div>
+          <div className="bfq-ad-title">
+            Bestå båtførerprøven – med selvtillit
+          </div>
+          <div className="bfq-ad-rotator" aria-live="polite">
+            {SLIDES.map((slide, i) => (
+              <div
+                key={i}
+                className={`bfq-ad-slide${
+                  i === current ? " is-active" : ""
+                }`}
+              >
+                {slide}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="bfq-ad-cta">Start quiz →</div>
+      </div>
+    </a>
   );
 };
 
