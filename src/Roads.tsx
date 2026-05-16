@@ -25,7 +25,7 @@ const RoadAndAd = React.forwardRef<HTMLDivElement, RoadAndAdProps>(
     return (
       <div ref={ref}>
         <Road road={r} />
-        {!props.adsDisabled && <Divider />}
+        <Divider hidden={props.adsDisabled} />
         {!props.adsDisabled && (props.showAd ? <Ad /> : <Annonse />)}
       </div>
     );
