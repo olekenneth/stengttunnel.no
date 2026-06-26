@@ -47,6 +47,6 @@
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^8.0.0",
-    "prettier": "3.8.4"
+    "prettier": "3.8.5"
   }
 }
