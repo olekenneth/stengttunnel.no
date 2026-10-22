@@ -146,12 +146,16 @@ const Road: FC<RoadProps> = (props: RoadProps) => {
           content={message.source}
           inverted
         />
-        <Feed.Content>
+        <Feed.Content style={{ minWidth: 0 }}>
           <Feed.Date
             content={times}
             aria-label={`Meldingen gjelder i perioden:`}
           />
-          <Feed.Summary>{message.message}</Feed.Summary>
+          <Feed.Summary
+            style={{ overflowWrap: "anywhere", wordBreak: "break-word" }}
+          >
+            {message.message}
+          </Feed.Summary>
         </Feed.Content>
       </Feed.Event>
     );
