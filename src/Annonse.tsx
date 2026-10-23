@@ -30,7 +30,7 @@ type Campaign = {
 const BATFORERQUIZEN: Campaign = {
   id: "batforerquizen",
   weight: 80,
-  href: "https://xn--btfrerquizen-tcb2y.no/?utm_source=stengttunnel&utm_medium=banner&utm_campaign=annonse",
+  href: "https://batforerquizen.no/?utm_source=stengttunnel&utm_medium=banner&utm_campaign=annonse",
   ariaLabel: "Båtførerquizen – øv til båtførerprøven på nett",
   eyebrow: "Båtførerquizen.no",
   title: "Bestå båtførerprøven – med selvtillit",
